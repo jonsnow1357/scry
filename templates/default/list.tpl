@@ -6,14 +6,14 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: list.tpl,v 1.4 2004/09/29 01:43:35 jbyers Exp $
+// $Id: list.tpl,v 1.5 2004/09/29 01:44:53 jbyers Exp $
 //
 ?>
 
 <table cellpadding="5" cellspacing="0" width="85%" border="0" align="center">
 <?php if (@count($T['dirs'])) { ?>
   <tr>
-    <td width="100%" id="t_main" align="center">
+    <td width="100%" id="t_slim" align="center">
 
 <?php
 while(list($k, $d) = @each($T['dirs'])) { 

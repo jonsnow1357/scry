@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: footer.tpl,v 1.3 2004/09/30 20:12:43 jbyers Exp $
+// $Id: footer.tpl,v 1.4 2004/09/30 20:17:05 jbyers Exp $
 //
 // Note: debug is a specialized template set designed for debugging
 //       purposes This theme does not display any images. 
@@ -19,7 +19,7 @@ Debug variables:
 <pre>
 <?php
 
-print(implode('\n', $DEBUG_MESSAGES);
+print(implode('\n', $DEBUG_MESSAGES));
 
 ?>
 </pre>

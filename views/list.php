@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: list.php,v 1.3 2004/02/10 21:16:54 jbyers Exp $
+// $Id: list.php,v 1.4 2004/09/30 01:36:35 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // list view
-//   $VARS[0] -> page N of listings, based on $CFG_max_thumbs
+//   $INDEX -> page N of listings, based on $CFG_max_thumbs
 //
 
 // fetch directory listing

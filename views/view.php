@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: view.php,v 1.3 2004/02/10 21:16:54 jbyers Exp $
+// $Id: view.php,v 1.4 2004/09/30 01:36:35 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -20,18 +20,26 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // detail view
-//   $VARS[0] -> index of image in directory file list
+//   $INDEX -> index of image in directory file list
 //
 
 // fetch directory listing
 //
 $data = directory_data($PATH_BASEDIR, $IMAGE_DIR); // FS SEE FUNCTION
 
+// TODO supplement current with image_size, etc.
+//     $image_size = getimagesize("$path/$v[name]"); // FS READ
+//     $file_size = filesize("$path/$v[name]"); // FS READ
+//    $exif_data = array();
+//                     'file_size'  => round($file_size / 1024, 0) . ' KB',
+//                     'image_size' => "$image_size[0]x$image_size[1]",
+//                     'exif_data'  => $exif_data);
+
 // assign, display templates
 //
-$T['current'] =& $data['files'][$VARS[0]]; 
-$T['next']    =& $data['files'][($VARS[0] + 1)]; 
-$T['prev']    =& $data['files'][($VARS[0] - 1)]; 
+$T['current'] =& $data['files'][$INDEX]; 
+$T['next']    =& $data['files'][($INDEX + 1)]; 
+$T['prev']    =& $data['files'][($INDEX - 1)]; 
 $T['path']    =  path_list($IMAGE_DIR); 
 debug('T', $T);
 

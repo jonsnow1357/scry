@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.7 2004/09/30 01:19:17 jbyers Exp $
+// $Id: image.php,v 1.8 2004/09/30 01:36:35 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -100,8 +100,8 @@ if (!$CFG_debug_image) {
         is_writable($CFG_path_cache) && // FS READ
         (($resize_x == $CFG_thumb_width && 
           $resize_y == $CFG_thumb_height) ||
-         ($resize_x == $CFG_view_width && 
-          $resize_y == $CFG_view_height))) {
+         ($resize_x == $CFG_image_width && 
+          $resize_y == $CFG_image_height))) {
       ImageJPEG($new_image, $cache['path']); // FS WRITE
       header('Location: '. $cache['cache_url']);
       exit();

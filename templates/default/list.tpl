@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: list.tpl,v 1.10 2004/09/30 21:01:29 jbyers Exp $
+// $Id: list.tpl,v 1.11 2004/09/30 23:28:58 jbyers Exp $
 //
 ?>
 
@@ -15,7 +15,7 @@
 if (@count($T['dirs'])) { 
 ?>
   <tr>
-    <td width="100%" id="t_slim" align="center">
+    <td width="100%" id="t_slim" align="center" colspan="2">
 
 <?php
 while(list($k, $d) = @each($T['dirs'])) { 
@@ -32,7 +32,7 @@ if (@count($T['files'])) {
 ?>
 
   <tr>
-    <td id="t_main" width="100%">
+    <td id="t_main" width="100%" colspan="2">
       <div class="images">
 
 <?php
@@ -44,7 +44,10 @@ while(list($k, $f) = @each($T['files'])) {
       </div>
     </td>
   </tr>
-
+  <tr>
+    <td align="left"><?php if ($T['offset_prev'] != -1) print('<a href="' . $T['offset_prev_url'] . '">&lt; previous page</a>'); ?></td>
+    <td align="right"><?php if ($T['offset_next'] != -1) print('<a href="' . $T['offset_next_url'] . '">next page &gt;</a>'); ?></td>
+  </tr>
 <?php 
 
 } // if files
@@ -54,7 +57,7 @@ if (!@count($T['dirs']) && !@count($T['files'])) {
 ?>
 
   <tr>
-    <td id="t_main" width="100%">
+    <td id="t_main" width="100%" colspan="2">
       <div class="images">
         <p align="center">No photos or folders found</p>
       </div>

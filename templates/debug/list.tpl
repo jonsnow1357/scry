@@ -6,10 +6,10 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: list.tpl,v 1.3 2004/09/30 20:12:43 jbyers Exp $
+// $Id: list.tpl,v 1.4 2004/09/30 23:33:29 jbyers Exp $
 //
 // Note: debug is a specialized template set designed for debugging
-//       purposes This theme does not display any images.
+//       purposes. This theme does not display any images.
 //
 
 print('<p>Path:<br>');

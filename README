@@ -5,7 +5,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: README,v 1.6 2004/09/30 03:00:10 jbyers Exp $
+// $Id: README,v 1.7 2004/10/01 07:01:48 jbyers Exp $
 //
 
 What's the point of another photo album?
@@ -34,14 +34,10 @@ system (http://gallery.sf.net).
 What's Required:
 ----------------
 
-- PHP 4.0.6 or newer
-- GD 2.X built as a PHP module 
+- PHP 4.1.X or newer
+- GD 2.X built as a PHP module with JPEG support
     OR
-  GD 1.6 build as a PHP module (image quality will be slightly worse)
-    OR 
-  a command line image resizing program such as ImageMagick's convert
-
-That's it!
+  GD 1.8 or newer built as a PHP module with JPEG support (see note #4 below)
 
 How to Install Scry:
 --------------------
@@ -103,6 +99,11 @@ path mode is to switch $CFG_variable_mode in setup.php to 'path'; if
 your album still works, you're good.  DESIGN describes these modes in
 more detail.
 
+4. If setup passes all tests but no images appear, try setting
+$CFG_use_old_gd to true.  If images then appear, your version of GD
+does not support high quality image resizing.  Upgrading to GD 2.0 or
+newer will correct this problem.
+
 Known Limitations:
 ------------------
 
@@ -111,7 +112,7 @@ Known Limitations:
   on Windows or MacOS X.
 - Scry supports only JPEG files.  Support for other formats may be 
   included in a later release.  
-- Scry will not run on version 4.0.6 of PHP or earlier. This is very 
+- Scry will not run on versions of PHP earlier than 4.1. This is very 
   unlikely to change in the future; if you're stuck with an old 
   version of PHP, it's time for your host to upgrade.
 - On some systems, image quality may not be acceptible with GD versions

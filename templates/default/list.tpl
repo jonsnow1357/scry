@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: list.tpl,v 1.2 2004/02/08 08:52:46 jbyers Exp $
+// $Id: list.tpl,v 1.3 2004/02/10 21:04:30 jbyers Exp $
 //
 ?>
 
@@ -17,7 +17,7 @@
 
 <?php
 while(list($k, $d) = @each($T['dirs'])) { 
-  print('<div class="folder"><a href="' . $d['list_url'] . '"><img src="/scry/templates/default/folder.png" alt="TODO" width="72" height="72" border="0" /><br />' . $d['name'] . "</a></div>\n");
+  print('<div class="folder"><a href="' . $d['list_url'] . '"><img src="' . $CFG_url_template . '/folder.png" alt="TODO" width="72" height="72" border="0" /><br />' . $d['name'] . "</a></div>\n");
 }
 ?>
 

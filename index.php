@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.10 2004/09/30 20:58:07 jbyers Exp $
+// $Id: index.php,v 1.11 2004/10/01 00:35:08 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -26,8 +26,8 @@
 //   $PATH  validated below, before FS calls
 //
 
-// high error notification level; if you see any displayed error, file a bug!
-//
+define('SCRY_VERSION', 1.1);
+
 error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 1);
 
@@ -46,7 +46,7 @@ $IMAGE_DIR     = '';      // image directory under $CFG_path_images ('Family/200
 $PATH          = '';      // full filesystem path to directory / image
 $PATH_BASEDIR  = '';      // filesystem path to directory / image without filename
 
-header('X-Powered-By: Scry 1.1 - http://scry.org');
+header('X-Powered-By: Scry ' . SCRY_VERSION . ' - http://scry.org');
 
 //////////////////////////////////////////////////////////////////////////////
 // parse URL or GET parameters

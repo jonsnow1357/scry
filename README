@@ -5,20 +5,21 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: README,v 1.7 2004/10/01 07:01:48 jbyers Exp $
+// $Id: README,v 1.8 2004/10/02 02:09:10 jbyers Exp $
 //
 
 What's the point of another photo album?
 ----------------------------------------
 
 For my needs, photo gallery programs always try to do too much.  They
-add all kinds of extraneous metadata, force you to use a web interface
-to upload and manage photos, glom data (and sometimes photos!) in a
-database, and generally complicate your life.  Photos are quite happy
-in a normal filesystem, with a simple XHTML interface, image resizing,
-and strong template support for inclusion in an existing site.
+add all kinds of extraneous metadata to your pictures, force you to
+use a web interface to upload and manage photos, glom data (and
+sometimes photos!) in a database, and generally complicate your life.
+Photos are quite happy in a normal filesystem, with a simple XHTML
+interface, image resizing, and strong template support for inclusion
+in an existing site.
 
-Scry is less than 1000 lines of code, including configuration and
+Scry is less than 700 lines of code, including configuration and
 copious comments, contained in 6 source files.  It doesn't use a
 database.  It has no administrative front end.  Change the filesystem
 and the image views will change without interaction on your part.
@@ -35,9 +36,10 @@ What's Required:
 ----------------
 
 - PHP 4.1.X or newer
-- GD 2.X built as a PHP module with JPEG support
+- GD 2.0 or newer built as a PHP module with JPEG support
     OR
-  GD 1.8 or newer built as a PHP module with JPEG support (see note #4 below)
+  GD 1.8 or newer built as a PHP module with JPEG support 
+  (see note #4 below)
 
 How to Install Scry:
 --------------------

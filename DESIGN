@@ -5,7 +5,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: DESIGN,v 1.3 2004/02/10 21:06:11 jbyers Exp $
+// $Id: DESIGN,v 1.4 2004/02/10 21:46:13 jbyers Exp $
 //
 
 Structure
@@ -53,9 +53,10 @@ There are no program execution or network functions in Scry.
 Variables
 ---------
 
-- Configuration variables are all contained in setup.php and prefixed with 'CFG'.
-- Scry assumes that register_globals is off, and references only the $_SERVER 
-  superglobals.  $_GET and $_POST are not used.
+- Configuration variables are all contained in setup.php and prefixed
+  with 'CFG'.  
+- Scry assumes that register_globals is off, and references only the
+  $_SERVER superglobals.  $_GET and $_POST are not used.
 
 URLs
 ----
@@ -72,7 +73,7 @@ Examples:
 
   list   http://scry.org/photos/index.php/list/2/path/to/images/
   view   http://scry.org/photos/index.php/view/12/path/to/images/00024601.jpg
-  image  http://scry.org/photos/index.php/image/800/600/path/to/images/00024601.jpg
+  image  http://scry.org/photos/index.php/image/800x600/path/to/images/00024601.jpg
 
 Global Variables
 ----------------
@@ -81,6 +82,7 @@ Used in (c)ontroller, (l)ist, (v)iew, (i)mage
 
   name           use  description
   -------------  ---  -------------------------------------------------------
+  TODO           -    -
 
 Caching
 -------
@@ -95,13 +97,33 @@ of images on the page.
 Images Outside Docroot
 ----------------------
 
+By default, Scry sends Location: headers to the browser to load cached
+images directly from the cache directory within the webserver's
+docroot.  However, both the cache directory and the image directory
+can be located outside the docroot if desired.  In this case, Scry
+will pass image loads through readfile() in the image.php view.
+
+See README for instructions on how to set up images outside the
+docroot.
 
 Templates
 ---------
 
+Templates are simple XHTML files with <?php ?> looping, control, and
+variable blocks.  'default' is a good example of the variables Scry
+provides.  README has short instructions on how to create and change
+themes.
 
 Debugging
 ---------
 
+There are two methods for debugging Scry.  The first is to use the
+'debug' theme by changing $CFG_path_template and $CFG_url_template
+variables to point to 'debug' instead of 'default'.  This theme dumps
+the value of all Scry variables.  You can navigate through the views
+but this theme will not display images.
 
-
+To debug images.php, set the $CFG_debug_image variable to true.  The
+image view will print text debugging output.  Note that if this flag
+is set, images in other views will appear to be broken unless you load
+the image view directly.

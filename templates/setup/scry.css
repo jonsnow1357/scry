@@ -1,0 +1,36 @@
+body {
+  font-family:verdana, arial, helvetica, sans-serif;
+  font-size: 12pt;
+}
+
+td {
+  font-size: 12pt;
+}
+
+.header {
+  font-size: 120%;
+  font-weight: bold;
+  text-align: left;
+}
+
+#title {
+  font-weight: bold;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  background-color: #CCCCFF;
+  padding-left: 10px;
+  border: 1px solid #999;
+}
+
+#content {
+  margin-left: 10px;
+}
+
+.footer_text {
+  font-size: 75%;
+  color: #999999;
+}
+
+.footer_image {
+  text-align: right;
+}

@@ -1,0 +1,37 @@
+body {
+        background-color: #CCCCCC;
+        color: #666666;
+        font-family: verdana, arial, san-serif;
+        font-size: 10px;
+        margin-left: 10px;
+        margin-top: 10px;
+        text-align: left;
+}
+
+#t_main {
+        background-color: #FFFFFF;
+        border: 2px solid #999999;
+        padding: 20px;
+        text-align: center;
+}
+
+#footer {
+        font-size: 9px;
+        text-align: right;
+}
+
+.folder {
+        text-align: center;
+}
+
+.folder a {
+        text-decoration: none;
+}
+
+.folder img {
+        border: 0px;
+}
+
+.images img {
+        border: 2px solid #000000;
+}

@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.9 2004/09/30 20:51:23 jbyers Exp $
+// $Id: index.php,v 1.10 2004/09/30 20:58:07 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -142,8 +142,9 @@ debug('PATH_BASEDIR', $PATH_BASEDIR);
 // assign global template variables; delegate to view
 //
 
-$T['template'] = $CFG_template;
-$T['title']    = $CFG_album_title;
+$T['title']        = $CFG_album_title;
+$T['template']     = $CFG_template;
+$T['template_url'] = $CFG_url_template;
 
 require_once('views/' . $VIEW . '.php');
 

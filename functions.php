@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.6 2004/09/29 05:08:00 jbyers Exp $
+// $Id: functions.php,v 1.7 2004/09/29 23:26:12 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -49,24 +49,28 @@ function parse_resolution($res) {
 
 // function cache_test(string $url, int $x, int $y) {
 // 
-// creates the file's cache path and tests for existance in the cache:
-//
+// creates the file's cache path and tests for existance in the cache
+// returns: 
 // array(
+//   is_cached,
 //   name,
 //   path,
-//   is_cached,
 //   cache_url
 // )
 //
 function cache_test($url, $x, $y) {
   global $CFG_cache_enable, $CFG_path_cache, $CFG_url_cache;
   
+  // cache paths and URL references to images must be URL and filesystem safe
+  // pure urlencoding would require double-urlencoding image URLs -- confusing
+  // instead replace %2f (/) with ! and % with $ (!, $ are URL safe) for readability and consistency between two versions
+  //
+  ereg("(.*)(\.[A-Za-z0-9]+)$", $url, $matches);
   $result              = array();
-  $clean_url           = eregi_replace('[^a-zA-Z0-9\._-]', '_', $url);
-  $result['name']      = $x . 'x' . $y . '_' . str_replace('/', '_', $clean_url);
-  $result['path']      = $CFG_path_cache . '/' . $result['name'];
   $result['is_cached'] = false;
-  $result['cache_url'] = $CFG_url_cache . '/' . $result['name'];
+  $result['name']      = str_replace('%', '$', str_replace('%2F', '!', urlencode($matches[1]))) . '_' . $x . 'x' . $y . $matches[2];
+  $result['path']      = $CFG_path_cache . '/' . $result['name'];
+  $result['cache_url'] = $CFG_url_cache  . '/' . $result['name'];
 
   path_security_check($result['path'], $CFG_path_cache);
 

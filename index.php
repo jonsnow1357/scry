@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.4 2004/02/10 21:08:40 jbyers Exp $
+// $Id: index.php,v 1.5 2004/09/29 01:29:42 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -28,7 +28,7 @@
 
 // high error notification level; if you see any displayed error, file a bug!
 //
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 1);
 
 require_once('setup.php');

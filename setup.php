@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: setup.php,v 1.12 2004/10/01 07:02:08 jbyers Exp $
+// $Id: setup.php,v 1.13 2004/10/02 01:25:38 jbyers Exp $
 //
  
 /***************************************************************************
@@ -69,10 +69,17 @@ $CFG_variable_mode = 'get';
 //
 $CFG_cache_enable = true;
 
-// use exifer library for exif tag parsing (http://www.jakeo.com/software/exif/)
-// to install exifer for Scry, download the library and place 'exif.php' and the 'makers' directory in the scry directory
-// PHP exif support is NOT required to use exifer
-// note that exifer uses 'short' PHP tags; you may have to change '<?' to '<?php' at the beginning of each exifer php file
+// use exifer library for exif tag parsing
+// http://www.jakeo.com/software/exif/
+//
+// scry + exifer installation:
+//   - download and unzip the library 
+//   - copy 'exif.php' and the 'makers' directory into the scry directory
+//   - set $CFG_use_exifer to true
+//   - note that exifer uses 'short' PHP tags; depending on your server
+//     configuration, you may have to change '<?' to '<?php' at the 
+//     beginning of exif.php and makers/*.php
+//   - note that PHP exif support is NOT required to use exifer
 //
 $CFG_use_exifer = false;
 

@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: header.tpl,v 1.4 2004/09/30 01:00:55 jbyers Exp $
+// $Id: header.tpl,v 1.5 2004/09/30 01:02:16 jbyers Exp $
 //
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -20,12 +20,15 @@
   <tr>
     <td align="left">
 <?php
+
 while(list($k, $p) = @each($T['path'])) { 
   print(" <a href=\"$p[url]\">$p[name]</a> / ");
 }
-if ($IMAGE_FILE != '') {
-  print $IMAGE_FILE;
+
+if (@$T['current']['name'] != '') {
+  print $T['current']['name'];
 }
+
 ?>
     </td>
   </tr>

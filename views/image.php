@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.5 2004/09/29 02:02:28 jbyers Exp $
+// $Id: image.php,v 1.6 2004/09/29 05:10:03 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -61,10 +61,16 @@ if (!$CFG_debug_image) {
       exit();
     }
   } else {
-    if ($resize_x == $image_props[0] && $resize_y == $image_props[1]) {
-      // show native image
+    if ($resize_x == $image_props[0] && 
+        $resize_y == $image_props[1]) {
+      // show native image via readfile or redirect
       //
-      header("Location: $CFG_path_images/$IMAGE_SUBDIR/$IMAGE_FILE");
+      if ($CFG_images_outside_docroot) {
+        header('Content-Type: image/jpeg');
+        readfile("$CFG_path_images/$IMAGE_DIR/$IMAGE_FILE");
+      } else {
+        header("Location: $CFG_url_images$IMAGE_DIR/$IMAGE_FILE");
+      } // if image outside docroot
       exit();
     } else {
       // resample image, saving to disk if caching enabled

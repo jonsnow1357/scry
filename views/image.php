@@ -2,11 +2,11 @@
 //
 // Scry - Simple PHP Photo Album
 // Copyright 2004 James Byers <jbyers@users.sf.net>
-// http://scry.sourceforge.net
+// http://scry.org
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.6 2004/09/29 05:10:03 jbyers Exp $
+// $Id: image.php,v 1.7 2004/09/30 01:19:17 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -22,12 +22,24 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 // image view
-//   $VARS[0] -> image width x image height
+//   $INDEX -> image width x image height or 0 for raw image display
 //
+
+if ('0' == $INDEX) {
+  // show raw image via readfile or redirect
+  //
+  if ($CFG_images_outside_docroot) {
+    header('Content-Type: image/jpeg');
+    readfile("$CFG_path_images/$IMAGE_DIR/$IMAGE_FILE");
+  } else {
+    header("Location: $CFG_url_images$IMAGE_DIR/$IMAGE_FILE");
+  } // if image outside docroot
+  exit();
+} // if raw image display
 
 // fetch image properties
 //
-list($x, $y) = parse_resolution($VARS[0]);
+list($x, $y) = parse_resolution($INDEX);
 $image_props = getimagesize($PATH); // FS READ
 
 if (!is_array($image_props)) {
@@ -61,57 +73,44 @@ if (!$CFG_debug_image) {
       exit();
     }
   } else {
-    if ($resize_x == $image_props[0] && 
-        $resize_y == $image_props[1]) {
-      // show native image via readfile or redirect
-      //
-      if ($CFG_images_outside_docroot) {
-        header('Content-Type: image/jpeg');
-        readfile("$CFG_path_images/$IMAGE_DIR/$IMAGE_FILE");
-      } else {
-        header("Location: $CFG_url_images$IMAGE_DIR/$IMAGE_FILE");
-      } // if image outside docroot
+    // resample image, saving to disk if caching enabled
+    //
+    $new_image = ImageCreateTrueColor($resize_x, $resize_y);
+    $src_image = ImageCreateFromJPEG($PATH); // FS READ
+    
+    // choose function based on fast mode and availability
+    //
+    $resize_function = 'ImageCopyResized';
+    if (false === $CFG_resize_fast &&
+        function_exists('ImageCopyResampled')) {
+      $resize_function = 'ImageCopyResampled';
+    } // if fast mode
+    
+    $resize_function($new_image, 
+                     $src_image, 
+                     0, 0, 0, 0, 
+                     $resize_x,
+                     $resize_y,
+                     $image_props[0],
+                     $image_props[1]);
+    
+    // verify cache enabled, path writable, and target size OK to be cached
+    // 
+    if ($CFG_cache_enable && 
+        is_writable($CFG_path_cache) && // FS READ
+        (($resize_x == $CFG_thumb_width && 
+          $resize_y == $CFG_thumb_height) ||
+         ($resize_x == $CFG_view_width && 
+          $resize_y == $CFG_view_height))) {
+      ImageJPEG($new_image, $cache['path']); // FS WRITE
+      header('Location: '. $cache['cache_url']);
       exit();
     } else {
-      // resample image, saving to disk if caching enabled
-      //
-      $new_image = ImageCreateTrueColor($resize_x, $resize_y);
-      $src_image = ImageCreateFromJPEG($PATH); // FS READ
-
-      // choose function based on fast mode and availability
-      //
-      $resize_function = 'ImageCopyResized';
-      if (false === $CFG_resize_fast &&
-          function_exists('ImageCopyResampled')) {
-        $resize_function = 'ImageCopyResampled';
-      } // if fast mode
-
-      $resize_function($new_image, 
-                       $src_image, 
-                       0, 0, 0, 0, 
-                       $resize_x,
-                       $resize_y,
-                       $image_props[0],
-                       $image_props[1]);
-      
-      // verify cache enabled, path writable, and target size OK to be cached
-      // 
-      if ($CFG_cache_enable && 
-          is_writable($CFG_path_cache) && // FS READ
-          (($resize_x == $CFG_thumb_width && 
-            $resize_y == $CFG_thumb_height) ||
-           ($resize_x == $CFG_view_width && 
-            $resize_y == $CFG_view_height))) {
-        ImageJPEG($new_image, $cache['path']); // FS WRITE
-        header('Location: '. $cache['cache_url']);
-        exit();
-      } else {
-        header('Content-Type: image/jpeg');
-        ImageJPEG($new_image);
-        exit();
-      } // if cache write
-    } // if image native size
-  } // if cache
+      header('Content-Type: image/jpeg');
+      ImageJPEG($new_image);
+      exit();
+    } // if cache write
+  } // if cached
 } else {
   debug('aspect_ratio', $aspect_ratio);
   debug('resize_x',     $resize_x);

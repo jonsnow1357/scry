@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.1 2004/02/05 06:54:40 jbyers Exp $
+// $Id: index.php,v 1.2 2004/02/08 07:39:02 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -15,7 +15,13 @@
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //
 
+// high error notification level; if you see any displayed error, file a bug!
+//
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once('setup.php');
+require_once('functions.php');
 
 //////////////////////////////////////////////////////////////////////////////
 // global variable, template initialization, headers
@@ -29,28 +35,9 @@ $VIEW          = '';      // view name
 $IMAGE_FILE    = '';      // image filename ('IMG20040201.jpg')
 $IMAGE_DIR     = '';      // image directory under $CFG_path_images ('Family/2003')
 $PATH          = '';      // full filesystem path to directory / image
-$PATH_BASENAME = '';      // filesystem path to directory / image without filename
+$PATH_BASEDIR  = '';      // filesystem path to directory / image without filename
 
 header('X-Powered-By: Scry 1.0 - http://scry.sourceforge.net');
-
-///////////////////////////////////////////////////////////////////////////////
-// utility functions
-//
-
-function debug($type, $message = '') {
-  global $DEBUG_MESSAGES;
-
-  if ($message == '') {
-    $message = $type;
-    $type = 'debug';
-  } // if
-  
-  if (is_array($message) || is_object($message)) {
-    $message = var_export($message, true);
-  } // if
-
-  $DEBUG_MESSAGES[] = "[$type]: $message";
-} // function debug
 
 //////////////////////////////////////////////////////////////////////////////
 // parse URL
@@ -78,8 +65,7 @@ switch ($URL_PARTS[$URL_OFFSET]) {
 
  case 'image':
    $VARS[0]          = $URL_PARTS[$URL_OFFSET + 1]; // image width
-   $VARS[1]          = $URL_PARTS[$URL_OFFSET + 2]; // image height
-   $IMAGE_DIR        = implode('/', array_slice($URL_PARTS, $URL_OFFSET + 3, -1));
+   $IMAGE_DIR        = implode('/', array_slice($URL_PARTS, $URL_OFFSET + 2, -1));
    list($IMAGE_FILE) = array_slice($URL_PARTS, -1);
    $VIEW             = 'image';
    break;
@@ -97,12 +83,9 @@ switch ($URL_PARTS[$URL_OFFSET]) {
 if ($IMAGE_FILE != '' && $IMAGE_DIR != '') {
   $PATH         = "$CFG_path_images/$IMAGE_DIR/$IMAGE_FILE";
   $PATH_BASEDIR = "$CFG_path_images/$IMAGE_DIR";
-} else if ($IMAGE_FILE == '' && IMAGE_DIR != '') {
+} else if ($IMAGE_FILE == '' && $IMAGE_DIR != '') {
   $PATH         = "$CFG_path_images/$IMAGE_DIR";
   $PATH_BASEDIR = "$CFG_path_images/$IMAGE_DIR";
-} else if ($IMAGE_FILE != '') {
-  $PATH         = $CFG_path_images;
-  $PATH_BASEDIR = $CFG_path_images;
 } else {
   $PATH         = $CFG_path_images;
   $PATH_BASEDIR = $CFG_path_images;

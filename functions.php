@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.1 2004/02/08 06:57:05 jbyers Exp $
+// $Id: functions.php,v 1.2 2004/02/08 07:39:02 jbyers Exp $
 //
 
 // function parse_resolution(string $res)
@@ -15,7 +15,7 @@
 // to a two-element array
 //
 function parse_resolution($res) {
-  return(explode('x', str_replace(' ', '', strtolower($sRes))));
+  return(explode('x', str_replace(' ', '', strtolower($res))));
 } // function parse_resolution
 
 // function cache_test(string $url, int $x, int $y) {
@@ -33,15 +33,14 @@ function cache_test($url, $x, $y) {
   global $CFG_cache_enable, $CFG_path_cache, $CFG_url_cache;
   
   $result              = array();
-  $clean_url           = eregi_replace('[^a-zA-Z0-9_-]', '', $url);
+  $clean_url           = eregi_replace('[^a-zA-Z0-9\._-]', '_', $url);
   $result['name']      = $x . 'x' . $y . '_' . str_replace('/', '_', $clean_url);
   $result['path']      = $CFG_path_cache . '/' . $result['name'];
   $result['is_cached'] = false;
-  $result['cache_url'] = '';
+  $result['cache_url'] = $CFG_url_cache . '/' . $result['name'];
 
   if ($CFG_cache_enable && is_file($result['path']) && is_readable($result['path'])) {
     $result['is_cached'] = true;
-    $result['cache_url'] = $CFG_url_cache . '/' . $result['name'];
   }
 
   return $result;

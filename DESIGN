@@ -5,14 +5,15 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: DESIGN,v 1.1 2004/02/05 06:54:40 jbyers Exp $
+// $Id: DESIGN,v 1.2 2004/02/08 07:39:02 jbyers Exp $
 //
 
 Structure
 ---------
 
-  setup.php      settings
   index.php      controller
+  functions.php  common functions
+  setup.php      configuration
   
   views/         views
     list.php     directory, thumbnail list 
@@ -72,20 +73,20 @@ Used in (c)ontroller, (l)ist, (v)iew, (i)mage
 Caching
 -------
 
-When the image state is initialized with the GET variable c=1, Scry
-will attempt to cache resized images.
-
-Based on $CFG_
+If $CFG_cache_enable is true, Scry will cache resized images.
 
 Caching is highly recommended.  If caching is off, or if you are
-viewing the page for the first time, it will render at a speed
+viewing the page for the first time, the page will render at a speed
 proprotional to the processing speed of your webserver and the number
-of images per page.
+of images on the page.
+
+Images Outside Docroot
+----------------------
+
 
 Templates
 ---------
 
-Templates are set up with variable maps contained in $T_vars.
 
 Debugging
 ---------

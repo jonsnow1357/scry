@@ -5,7 +5,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: README,v 1.1 2004/02/05 06:54:40 jbyers Exp $
+// $Id: README,v 1.2 2004/02/08 07:39:02 jbyers Exp $
 //
 
 What's the point of another photo album?
@@ -65,22 +65,26 @@ How to Install Scry:
 
 If all is well, you'll see directories and photos.
 
-Configuration Notes:
---------------------
+Notes:
+------
 
-1. Note that Scry can publish photos within your webserver's document
-   root or outside it on the filesystem.  If you set your 
-   $CFG_path_images or $CFG_path_cache outside your document root, be
-   sure to also set $CFG_cache_outside_docroot and
-   $CFG_images_outside_docroot to true.
+1. Scry can publish photos within your webserver's document root or
+outside it on the filesystem.  If you set your $CFG_path_images or
+$CFG_path_cache outside your document root, be sure to also set
+$CFG_cache_outside_docroot and $CFG_images_outside_docroot to true.
+
+2. Don't worry about the order of sizes in photo dimensions (640x480
+vs. 480x640) .  Scry automatically switches these dimensions if the
+photo is rotated.  Put a different way, Scry will flip dimensions to
+match the aspect ratio of the image.
 
 Known Limitations:
 ------------------
 
 - Scry 1.0 has only been tested on Linux.  With correctly formatted path
   names, Scry should work without modification on Windows.
-- Scry 1.0 supports only JPEG files.  Support for other formats is planned 
-  for a later release.
+- Scry 1.0 supports only JPEG files.  Support for other formats may be 
+  included in a later release.
 
 Troubleshooting and Support:
 ----------------------------

@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.10 2004/09/30 20:51:23 jbyers Exp $
+// $Id: image.php,v 1.11 2004/09/30 21:55:24 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,20 @@
 //   $INDEX -> image width x image height or 0 for raw image display
 //
 
-if ('0' == $INDEX) {
+// fetch image properties
+//
+list($x, $y) = parse_resolution($INDEX);
+$image_props = getimagesize($PATH); // FS READ
+
+if (!is_array($image_props)) {
+  die('bad props');
+} 
+
+// 0 INDEX or original size image: redirect or load image
+//
+if ('0' == $INDEX ||
+    ($x == $image_props[0] &&
+     $y == $image_props[1])) {
   // show raw image via readfile or redirect
   //
   if ($CFG_images_outside_docroot) {
@@ -37,30 +50,10 @@ if ('0' == $INDEX) {
   exit();
 } // if raw image display
 
-// fetch image properties
+// calculate resize, bounded by $INDEX resolution
 //
-list($x, $y) = parse_resolution($INDEX);
-$image_props = getimagesize($PATH); // FS READ
-
-if (!is_array($image_props)) {
-  die('bad props');
-} 
-
-//  
-//
-//
-// width and height may be inverted; if input x > y && image x < y, invert input x and y
-// 
-$aspect_ratio   = (float)($image_props[0] / $image_props[1]);
-$resize_x = $x;
-$resize_y = $y;
-
-//
-// TODO sucks
-//
-if (($x > $y && $image_props[0] < $image_props[1]) || ($x < $y && $image_props[0] > $image_props[1])) {
-  $resize_x = (int)($resize_y * $aspect_ratio);
-}
+(int)$resize_x = ($image_props[0] <= $image_props[1]) ? round(($image_props[0] * $y)/$image_props[1]) : $x;
+(int)$resize_y = ($image_props[0] > $image_props[1]) ? round(($image_props[1] * $x)/$image_props[0]) : $y;
 
 // if caching enabled and file exists, redirect
 //
@@ -130,7 +123,6 @@ if (!$CFG_debug_image) {
     } // if cache write
   } // if cached
 } else {
-  debug('aspect_ratio', $aspect_ratio);
   debug('resize_x',     $resize_x);
   debug('resize_y',     $resize_y);
   debug('image_x',      $image_props[0]);

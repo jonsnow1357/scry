@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: view.tpl,v 1.5 2004/09/30 21:53:44 jbyers Exp $
+// $Id: view.tpl,v 1.6 2004/09/30 23:32:36 jbyers Exp $
 //
 ?>
 
@@ -32,7 +32,7 @@
             <div class="images">
 <?php 
 if (is_array($T['prev'])) {
-  print('<a href="' . $T['prev']['view_url'] . '"><img src="' . $T['prev']['thumb_url'] . '" alt="previous" /></a><br />&lt; previous'); 
+  print('<a style="text-decoration: none;" href="' . $T['prev']['view_url'] . '"><img src="' . $T['prev']['thumb_url'] . '" alt="previous" /><br />&lt; previous</a>'); 
 } else {
   print("&nbsp;");
 }
@@ -46,7 +46,7 @@ if (is_array($T['prev'])) {
             <div class="images">
 <?php 
 if (is_array($T['next'])) {
-  print('<a href="' . $T['next']['view_url'] . '"><img src="' . $T['next']['thumb_url'] . '" alt="next" /></a><br />next &gt;'); 
+  print('<a style="text-decoration: none;" href="' . $T['next']['view_url'] . '"><img src="' . $T['next']['thumb_url'] . '" alt="next" /><br />next &gt;</a>'); 
 } else {
   print("&nbsp;");
 }

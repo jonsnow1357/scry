@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.15 2004/10/11 21:57:32 jbyers Exp $
+// $Id: functions.php,v 1.16 2004/11/02 01:46:40 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -257,19 +257,36 @@ function build_url($view, $index, $path) {
   global $CFG_variable_mode, $CFG_url_album;
 
   if ($CFG_variable_mode == 'path') {
-    return(urlencode("$CFG_url_album/$view/$index/$path"));
+    return("$CFG_url_album/$view/$index/" . urlencode($path));
   } else {
-    return(urlencode("$CFG_url_album?v=$view&i=$index&p=$path"));
+    return("$CFG_url_album?v=$view&i=$index&p=" . urlencode($path));
   } 
 } // function build_url
 
-// function resize($x, $y
+// function resize($x, $y)
 // calculates resized image based on image x1,y1 and bounding box x2,y2
+// three modes: constant X, constant Y, full bounding box
 // returns array(x, y)
 //
 function calculate_resize($x1, $y1, $x2, $y2) {
-  (int)$resize_x = ($x1 <= $y1) ? round(($x1 * $y2)/$y1) : $x2;
-  (int)$resize_y = ($x1 >  $y1) ? round(($y1 * $x2)/$x1) : $y2;
+  global $CFG_resize_mode;
+
+  switch ($CFG_resize_mode) {
+  case 'X':
+    (int)$resize_x = $x2;
+    (int)$resize_y = round(($y1 * $x2)/$x1);
+    break;
+    
+  case 'Y':
+    (int)$resize_x = round(($x1 * $y2)/$y1);
+    (int)$resize_y = $y2;  
+    break;
+    
+  default:
+    (int)$resize_x = ($x1 <= $y1) ? round(($x1 * $y2)/$y1) : $x2;
+    (int)$resize_y = ($x1 >  $y1) ? round(($y1 * $x2)/$x1) : $y2;
+    break;    
+  }
   return array($resize_x, $resize_y);
 } // calculate_resize
 

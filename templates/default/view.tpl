@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: view.tpl,v 1.6 2004/09/30 23:32:36 jbyers Exp $
+// $Id: view.tpl,v 1.7 2004/10/01 06:39:35 jbyers Exp $
 //
 ?>
 
@@ -40,7 +40,20 @@ if (is_array($T['prev'])) {
             </div>
           </td>
           <td width="40%" align="middle" valign="bottom">
-             <?php // print_r($T['current']['exif_data']); ?>
+            <p>
+<?php 
+if (is_array($T['current']['exif_data'])) {
+  // there are hundreds of exif tags; this is just a sample based images from a Canon S30
+  // see exif.php for more details
+  //
+  print(eregi_replace('[^a-z0-9 /-_]', '', $T['current']['exif_data']['IFD0']['Model']) . "<br />"); 
+  print(eregi_replace('[^a-z0-9 /-_]', '', $T['current']['exif_data']['IFD0']['DateTime']) . "<br />"); 
+  print(eregi_replace('[^a-z0-9 /-_]', '', $T['current']['exif_data']['SubIFD']['ExposureTime']) . " - "); 
+  print(eregi_replace('[^a-z0-9 /-_]', '', $T['current']['exif_data']['SubIFD']['FNumber']) . " - "); 
+  print(eregi_replace('[^a-z0-9 /-_]', '', $T['current']['exif_data']['SubIFD']['Flash']) . "<br />"); 
+}
+?>
+            </p>
           </td>
           <td width="30%" align="right" valign="bottom">
             <div class="images">
@@ -59,4 +72,3 @@ if (is_array($T['next'])) {
     </td>
   </tr>
 </table>
-

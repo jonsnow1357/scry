@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: view.tpl,v 1.7 2004/10/01 06:39:35 jbyers Exp $
+// $Id: view.tpl,v 1.8 2004/10/06 20:00:45 jbyers Exp $
 //
 ?>
 
@@ -18,11 +18,11 @@
         <tr>
           <td width="100%" colspan="3" align="center">
             <div class="images">
-            <img src="<?php print $T['current']['image_url']; ?>" alt="<?php print $T['current']['name']; ?>" />
+            <img src="<?php print $T['current']['image_url']; ?>" alt="<?php print $T['current']['name']; ?>" width="<?php print $T['current']['view_size'][0]; ?>" height="<?php print $T['current']['view_size'][1]; ?>" />
             <br />
             <?php print $T['current']['name']; ?> 
             <br />
-            <a href="<?php print($T['current']['raw_url']); ?>"><?php print($T['current']['image_size'] . ', ' . $T['current']['file_size']); ?></a> 
+            <a href="<?php print($T['current']['raw_url']); ?>"><?php print($T['current']['image_size'][0] . 'x' . $T['current']['image_size'][1] . ', ' . $T['current']['file_size']); ?></a> 
             </div>
           </td>
         </tr>

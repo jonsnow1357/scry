@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: setup.php,v 1.5 2004/02/10 21:21:21 jbyers Exp $
+// $Id: setup.php,v 1.6 2004/02/10 21:54:14 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ $CFG_path_template = '/CHANGE_ME/docroot/scry/templates/default';
 
 $CFG_url_images    = 'http://CHANGE_ME/photos';
 $CFG_url_cache     = 'http://CHANGE_ME/scry/cache';
-$CFG_url_template  = 'http://CHANGE_ME/templates/default';
+$CFG_url_template  = 'http://CHANGE_ME/scry/templates/default';
 
 // are the cache and images directories outside the webserver's docroot?
 //

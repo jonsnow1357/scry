@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: setup.php,v 1.15 2004/11/02 01:35:01 jbyers Exp $
+// $Id: setup.php,v 1.16 2004/11/04 21:46:22 jbyers Exp $
 //
  
 /***************************************************************************
@@ -39,6 +39,10 @@ $CFG_thumb_height  = 75;
 
 $CFG_image_width   = 640;
 $CFG_image_height  = 480;
+
+// JPEG compression level from 0-100; default is 75
+//
+$CFG_jpeg_compression = 75;
 
 // resize mode: 'X'-bounded, 'Y'-bounded, 'XY'-bounded
 //

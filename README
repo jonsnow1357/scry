@@ -1,11 +1,11 @@
 //
 // Scry - Simple PHP Photo Album
 // Copyright 2004 James Byers <jbyers@users.sf.net>
-// http://scry.sourceforge.net
+// http://scry.org
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: README,v 1.5 2004/03/02 07:31:33 jbyers Exp $
+// $Id: README,v 1.6 2004/09/30 03:00:10 jbyers Exp $
 //
 
 What's the point of another photo album?
@@ -18,7 +18,7 @@ database, and generally complicate your life.  Photos are quite happy
 in a normal filesystem, with a simple XHTML interface, image resizing,
 and strong template support for inclusion in an existing site.
 
-Scry is less than 700 lines of code, including configuration and
+Scry is less than 1000 lines of code, including configuration and
 copious comments, contained in 6 source files.  It doesn't use a
 database.  It has no administrative front end.  Change the filesystem
 and the image views will change without interaction on your part.
@@ -34,23 +34,27 @@ system (http://gallery.sf.net).
 What's Required:
 ----------------
 
-- PHP 4 > 4.0.6
-- GD 2.X built as a PHP module
+- PHP 4.0.6 or newer
+- GD 2.X built as a PHP module 
+    OR
+  GD 1.6 build as a PHP module (image quality will be slightly worse)
+    OR 
+  a command line image resizing program such as ImageMagick's convert
 
 That's it!
 
 How to Install Scry:
 --------------------
 
-1. Untar scry-1.0.tar.gz into your webserver's document root:
+1. Untar scry-1.1.tar.gz into your webserver's document root:
 
    cd /path/to/webserver/document/root
-   tar zxvf /path/to/scry/scry-1.0.tar.gz
+   tar zxvf /path/to/scry/scry-1.1.tar.gz
 
-2. Move the resulting "scry-1.0" directory to "scry" (for purposes of
+2. Move the resulting "scry-1.1" directory to "scry" (for purposes of
    these instructions)
 
-   mv scry-1.0 scry
+   mv scry-1.1 scry
    cd scry
 
 3. Create a directory for cached image files.  Set the permissions of this 
@@ -64,8 +68,8 @@ How to Install Scry:
    $CFG_url_scry     the URL to your scry directory from step #2
    $CFG_url_images   the URL to your photos directory
 
-   $CFG_path_scry    the path to your scry directory from step #2
-   $CFG_path_images  the path to your photos directory
+   $CFG_path_scry    the filesystem path to your scry directory from step #2
+   $CFG_path_images  the filesystem path to your photos directory
 
 5. Leave $CFG_template set to 'setup' and point your browser to the
    Scry URL you set in $CFG_url_scry.  You will see a set of tests to
@@ -84,32 +88,39 @@ outside it on the filesystem.  If you set your $CFG_path_images or
 $CFG_path_cache outside your document root, be sure to also set
 $CFG_cache_outside_docroot and $CFG_images_outside_docroot to true.
 
-2. Don't worry about the order of sizes in photo dimensions (640x480
-vs. 480x640) .  Scry automatically switches these dimensions if the
-photo is rotated.  Put a different way, Scry will flip dimensions to
-match the aspect ratio of the image.
+2. It's easy to create new templates.  To create a new template, copy
+the contents of the 'default' subdirectory to a new subdirectory.
+Edit the new files as you please; they're XHTML with <?php ?> blocks
+looping over and printing $T variables.  Change $CFG_template to your
+template directory name to swich.
 
-3. It's easy to create new templates and tell scry to use them.  To
-create a new template, copy the contents of the 'default' subdirectory
-to a new subdirectory.  Edit the new files as you please; they're
-XHTML with <?php ?> blocks looping over and printing variables.  The
-$CFG_path_template and $CFG_path_url variables control which template
-is loaded.  Change the directory at the end of these variables from
-'default' to your new template name.  See DESIGN for details on the
-'debug' template.
+3. Scry 1.1 supports URL variables using both GET and path parsing
+methods.  Both will work exactly the same way, but some people think
+path parsing is more aesthetically pleasing.  Path mode requires
+Apache 1.3 or Apache 2.0 with "AcceptPathInfo On" in httpd.conf or an
+.htaccess file.  A quick way to find out if your webserver supports
+path mode is to switch $CFG_variable_mode in setup.php to 'path'; if
+your album still works, you're good.  DESIGN describes these modes in
+more detail.
 
 Known Limitations:
 ------------------
 
-- Scry 1.0 has only been tested on Linux.  With correctly formatted path
-  names, Scry should work without modification on Windows.
-- Scry 1.0 supports only JPEG files.  Support for other formats may be 
-  included in a later release.
+- Scry has only been tested on Linux and UNIX systems.  With
+  correctly formatted path names, Scry should work without modification 
+  on Windows or MacOS X.
+- Scry supports only JPEG files.  Support for other formats may be 
+  included in a later release.  
+- Scry will not run on version 4.0.6 of PHP or earlier. This is very 
+  unlikely to change in the future; if you're stuck with an old 
+  version of PHP, it's time for your host to upgrade.
+- On some systems, image quality may not be acceptible with GD versions
+  before 2.0.
 
 Troubleshooting and Support:
 ----------------------------
 
-See http://scry.sourceforge.net for troubleshooting advice and support.
+See http://scry.org for troubleshooting advice and support.
 
 Bugs, Features:
 ---------------

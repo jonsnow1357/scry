@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.4 2004/09/29 01:27:21 jbyers Exp $
+// $Id: image.php,v 1.5 2004/09/29 02:02:28 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -71,13 +71,22 @@ if (!$CFG_debug_image) {
       //
       $new_image = ImageCreateTrueColor($resize_x, $resize_y);
       $src_image = ImageCreateFromJPEG($PATH); // FS READ
-      ImageCopyResampled($new_image, 
-                         $src_image, 
-                         0, 0, 0, 0, 
-                         $resize_x,
-                         $resize_y,
-                         $image_props[0],
-                         $image_props[1]);
+
+      // choose function based on fast mode and availability
+      //
+      $resize_function = 'ImageCopyResized';
+      if (false === $CFG_resize_fast &&
+          function_exists('ImageCopyResampled')) {
+        $resize_function = 'ImageCopyResampled';
+      } // if fast mode
+
+      $resize_function($new_image, 
+                       $src_image, 
+                       0, 0, 0, 0, 
+                       $resize_x,
+                       $resize_y,
+                       $image_props[0],
+                       $image_props[1]);
       
       // verify cache enabled, path writable, and target size OK to be cached
       // 

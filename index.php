@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.12 2004/10/02 01:22:14 jbyers Exp $
+// $Id: index.php,v 1.13 2004/10/11 21:40:08 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -33,6 +33,20 @@ ini_set('display_errors', 1);
 
 require_once('setup.php');
 require_once('functions.php');
+
+// remove slashes from $_GET
+//
+if (get_magic_quotes_gpc()) {
+  function stripslashes_deep($value)
+    {
+      $value = is_array($value) ?
+        array_map('stripslashes_deep', $value) :
+        stripslashes($value);
+
+      return $value;
+    }
+  $_GET = array_map('stripslashes_deep', $_GET);
+} // if magic_quotes
 
 //////////////////////////////////////////////////////////////////////////////
 // global variable, template initialization, headers

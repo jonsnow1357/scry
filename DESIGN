@@ -5,7 +5,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: DESIGN,v 1.2 2004/02/08 07:39:02 jbyers Exp $
+// $Id: DESIGN,v 1.3 2004/02/10 21:06:11 jbyers Exp $
 //
 
 Structure
@@ -37,6 +37,18 @@ Scry has three views:
 index.php is the controller.  The view is selected based on the URL as
 described below.  index.php sets up any global variables and then
 punts control to the view.
+
+Security
+--------
+
+All filesystem calls (reads, writes, and Scry functions) are marked
+with "FS [TYPE]".  Each file also contains a security header comment
+denoting critical path variables.  These variables are scrubbed and
+tested via the path_security_check function, verifying the resolved
+paths (actual path when considering multiple slashes, ., and ..) are
+within the configured image paths.
+
+There are no program execution or network functions in Scry.
 
 Variables
 ---------

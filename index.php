@@ -6,13 +6,24 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.3 2004/02/08 08:50:25 jbyers Exp $
+// $Id: index.php,v 1.4 2004/02/10 21:08:40 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
 // !! NOTE - this file does not need to be edited; see setup.php !!
 // !!                                                            !!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//
+
+//////////////////////////////////////////////////////////////////////////////
+// Security
+//
+// require_once calls are based only on static variables or constants.
+//
+// One variable is used in filesystem reads (search for "FS" in this
+// file):
+//
+//   $PATH  validated below, before FS calls
 //
 
 // high error notification level; if you see any displayed error, file a bug!
@@ -77,7 +88,8 @@ switch ($URL_PARTS[$URL_OFFSET]) {
 } // switch $VIEW
 
 //////////////////////////////////////////////////////////////////////////////
-// verify path
+// set up path derivative variables
+// test $PATH for security compliance; must be below $CFG_path_images
 //
 
 if ($IMAGE_FILE != '' && $IMAGE_DIR != '') {
@@ -91,11 +103,13 @@ if ($IMAGE_FILE != '' && $IMAGE_DIR != '') {
   $PATH_BASEDIR = $CFG_path_images;
 }
 
-if (!is_readable($PATH)) {
+path_security_check($PATH, $CFG_path_images);
+
+if (!is_readable($PATH)) { // FS READ
   die("$PATH does not exist or is not readable by the webserver");
-} else if (($VIEW == 'image' || $VIEW == 'view') && !is_file($PATH)) {
+} else if (($VIEW == 'image' || $VIEW == 'view') && !is_file($PATH)) { // FS READ
   die("$PATH is not an image file");
-} else if ($VIEW == 'list' && !is_dir($PATH)) {
+} else if ($VIEW == 'list' && !is_dir($PATH)) { // FS READ
   die("$PATH is not a directory");
 }
 

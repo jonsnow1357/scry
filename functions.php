@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.3 2004/02/08 08:50:25 jbyers Exp $
+// $Id: functions.php,v 1.4 2004/02/10 21:08:40 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -14,6 +14,29 @@
 // !!                                                            !!
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //
+
+//////////////////////////////////////////////////////////////////////////////
+// Security
+//
+// Two functions contain filesystem calls (search for "FS" in this
+// file):
+//
+//   directory_data()
+//   cache_test()
+//
+
+// function path_security_check(string $victim, string $test)
+//
+// the resolved path of $victim must be below $test on the filesystem
+//
+function path_security_check($victim, $test) {
+  
+  if (eregi("^" . rtrim('/', $test) . ".*", rtrim('/', realpath($victim)))) {
+    return true;
+  } 
+
+  die("path security check failed: $victim - $test");
+} // function path_security_check
 
 // function parse_resolution(string $res)
 //
@@ -45,7 +68,9 @@ function cache_test($url, $x, $y) {
   $result['is_cached'] = false;
   $result['cache_url'] = $CFG_url_cache . '/' . $result['name'];
 
-  if ($CFG_cache_enable && is_file($result['path']) && is_readable($result['path'])) {
+  path_security_check($result['path'], $CFG_path_cache);
+
+  if ($CFG_cache_enable && is_file($result['path']) && is_readable($result['path'])) { // FS READ
     $result['is_cached'] = true;
   }
 
@@ -76,14 +101,16 @@ function cache_test($url, $x, $y) {
 //       '.' and '..' are not referenced in the directory array
 //
 function directory_data($path, $url_path) {
-  global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_view_width, $CFG_view_height;
+  global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_view_width, $CFG_view_height, $CFG_path_images;
+
+  path_security_check($path, $CFG_path_images);
 
   // load raw directory first, sort, and reprocess
   //
   $files_raw = array();
   $dirs_raw  = array();
-  if ($h_dir = opendir($path)) {
-    while (false !== ($filename = readdir($h_dir))) { 
+  if ($h_dir = opendir($path)) { // FS READ
+    while (false !== ($filename = readdir($h_dir))) { // FS READ
       if ($filename != '.' && $filename != '..') { 
         // set complete url
         //
@@ -93,16 +120,18 @@ function directory_data($path, $url_path) {
           $url = "$url_path/$filename";
         }
 
-        if (is_file("$path/$filename") && eregi($CFG_image_valid, $filename)) {
+        path_security_check("$path/$filename", $CFG_path_images);
+
+        if (is_file("$path/$filename") && eregi($CFG_image_valid, $filename)) { // FS READ
           $files_raw[] = array('name' => $filename,
                                'url'  => $url);
-        } else if (is_dir("$path/$filename")) {
+        } else if (is_dir("$path/$filename")) { // FS READ
           $dirs_raw[]  = array('name' => $filename,
                                'url'  => $url);
         } // if ... else is_file or is_dir
       } // if
     } // while
-    closedir($h_dir);
+    closedir($h_dir); // FS READ
   } // if opendir
 
   // sort directory arrays by filename
@@ -122,8 +151,8 @@ function directory_data($path, $url_path) {
   while (list($k, $v) = each($files_raw)) {
     // set thumbnail cached vs. not
     //
-    $thumb = cache_test($v['url'], $CFG_thumb_width, $CFG_thumb_height);
-    $image = cache_test($v['url'], $CFG_view_width, $CFG_view_height);
+    $thumb = cache_test($v['url'], $CFG_thumb_width, $CFG_thumb_height); // FS FUNCTION
+    $image = cache_test($v['url'], $CFG_view_width, $CFG_view_height); // FS FUNCTION
 
     if ($thumb['is_cached']) {
       $thumb_url = $thumb['cache_url'];
@@ -137,7 +166,9 @@ function directory_data($path, $url_path) {
       $image_url = "$CFG_url_album/image/$CFG_view_width" . "x$CFG_view_height/" . $v['url'];
     }
 
-    $image_size = getimagesize("$path/$v[name]");
+    path_security_check("$path/$v[name]", $CFG_path_images);
+
+    $image_size = getimagesize("$path/$v[name]"); // FS READ
 
     $files[] = array('name'       => $v['name'],
                      'index'      => $file_count,

@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.13 2004/10/02 01:32:36 jbyers Exp $
+// $Id: image.php,v 1.14 2004/10/06 04:35:57 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -24,6 +24,10 @@
 // image view
 //   $INDEX -> image width x image height or 0 for raw image display
 //
+
+// script must continue on user abort
+//
+ignore_user_abort(true);
 
 // fetch image properties
 //

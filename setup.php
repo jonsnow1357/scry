@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: setup.php,v 1.13 2004/10/02 01:25:38 jbyers Exp $
+// $Id: setup.php,v 1.14 2004/10/04 01:16:26 jbyers Exp $
 //
  
 /***************************************************************************
@@ -90,10 +90,17 @@ $CFG_debug_image = false;
 
 // derived URLs and paths
 //
-$CFG_url_album     = rtrim($CFG_url_scry, '/')  . '/index.php';
-$CFG_path_cache    = rtrim($CFG_path_scry, '/') . '/cache';
-$CFG_path_template = rtrim($CFG_path_scry, '/') . '/templates/' . $CFG_template;
-$CFG_url_cache     = rtrim($CFG_url_scry, '/')  . '/cache';
-$CFG_url_template  = rtrim($CFG_url_scry, '/')  . '/templates/' . $CFG_template;
+$CFG_url_scry      = rtrim($CFG_url_scry, '/') . '/';
+$CFG_url_images    = rtrim($CFG_url_images, '/') . '/';
+
+$CFG_path_scry     = rtrim($CFG_path_scry, '/');
+$CFG_path_images   = rtrim($CFG_path_images, '/');
+
+$CFG_url_album     = $CFG_url_scry  . 'index.php';
+$CFG_url_cache     = $CFG_url_scry  . 'cache';
+$CFG_url_template  = $CFG_url_scry  . 'templates/' . $CFG_template;
+
+$CFG_path_cache    = $CFG_path_scry . '/cache';
+$CFG_path_template = $CFG_path_scry . '/templates/' . $CFG_template;
 
 ?>

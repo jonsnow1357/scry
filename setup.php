@@ -6,12 +6,12 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: setup.php,v 1.11 2004/10/01 06:48:31 jbyers Exp $
+// $Id: setup.php,v 1.12 2004/10/01 07:02:08 jbyers Exp $
 //
  
 /***************************************************************************
  *                                                                         *
- * The first five values must be set to install Scry.  See README.         *
+ * The first four values must be set to install Scry.  See README.         *
  *                                                                         *
  ***************************************************************************/
 
@@ -21,7 +21,7 @@ $CFG_url_images  = 'http://CHANGE_ME/photos/';
 $CFG_path_scry   = '/CHANGE_ME/docroot/scry';
 $CFG_path_images = '/CHANGE_ME/docroot/photos';
 
-$CFG_template    = 'default';
+$CFG_template    = 'setup';
 
 $CFG_album_title = 'photo album';
 $CFG_album_name  = 'photos';

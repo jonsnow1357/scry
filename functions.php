@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.12 2004/10/02 01:15:00 jbyers Exp $
+// $Id: functions.php,v 1.13 2004/10/06 04:33:55 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -107,7 +107,7 @@ function cache_test($url, $x, $y) {
 //       '.' and '..' are not referenced in the directory array
 //
 function directory_data($path, $url_path) {
-  global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_image_width, $CFG_image_height, $CFG_path_images;
+  global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_image_width, $CFG_image_height, $CFG_path_images, $CFG_cache_outside_docroot;
 
   // put CFG_image_valid array into eregi form
   //
@@ -166,16 +166,16 @@ function directory_data($path, $url_path) {
     $thumb = cache_test($v['url'], $CFG_thumb_width, $CFG_thumb_height); // FS FUNCTION
     $image = cache_test($v['url'], $CFG_view_width, $CFG_view_height); // FS FUNCTION
 
-    if ($thumb['is_cached']) {
-      $thumb_url = $thumb['cache_url'];
-    } else {
+    if ($CFG_cache_outside_docroot || !$thumb['is_cached']) {
       $thumb_url = build_url('image', $CFG_thumb_width . 'x' . $CFG_thumb_height, $v['url']);
+    } else {
+      $thumb_url = $thumb['cache_url'];
     }
 
-    if ($image['is_cached']) {
-      $image_url = $image['cache_url'];
-    } else {
+    if ($CFG_cache_outside_docroot || !$image['is_cached']) {
       $image_url = build_url('image', $CFG_image_width . 'x' . $CFG_image_height, $v['url']);
+    } else {
+      $image_url = $image['cache_url'];
     }
 
     path_security_check("$path/$v[name]", $CFG_path_images);

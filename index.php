@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.13 2004/10/11 21:40:08 jbyers Exp $
+// $Id: index.php,v 1.14 2004/11/06 07:11:54 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -122,6 +122,9 @@ if ($IMAGE_FILE != '' && $IMAGE_DIR != '') {
 } else if ($IMAGE_FILE == '' && $IMAGE_DIR != '') {
   $PATH         = "$CFG_path_images/$IMAGE_DIR";
   $PATH_BASEDIR = "$CFG_path_images/$IMAGE_DIR";
+} else if ($IMAGE_FILE != '' ) {
+  $PATH         = "$CFG_path_images/$IMAGE_FILE";
+  $PATH_BASEDIR = $CFG_path_images;
 } else {
   $PATH         = $CFG_path_images;
   $PATH_BASEDIR = $CFG_path_images;

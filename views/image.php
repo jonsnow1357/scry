@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.9 2004/09/30 02:58:06 jbyers Exp $
+// $Id: image.php,v 1.10 2004/09/30 20:51:23 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -46,12 +46,18 @@ if (!is_array($image_props)) {
   die('bad props');
 } 
 
+//  
+//
+//
 // width and height may be inverted; if input x > y && image x < y, invert input x and y
 // 
 $aspect_ratio   = (float)($image_props[0] / $image_props[1]);
 $resize_x = $x;
 $resize_y = $y;
 
+//
+// TODO sucks
+//
 if (($x > $y && $image_props[0] < $image_props[1]) || ($x < $y && $image_props[0] > $image_props[1])) {
   $resize_x = (int)($resize_y * $aspect_ratio);
 }
@@ -76,22 +82,19 @@ if (!$CFG_debug_image) {
     // resample image, saving to disk if caching enabled
     // note: function_exists is a poor test for GD functions
     //
-    if (!@$new_image = ImageCreateTrueColor($resize_x, $resize_y)) {
+    if ($CFG_use_old_gd) {
       $new_image = ImageCreate($resize_x, $resize_y);
+    } else {
+      $new_image = ImageCreateTrueColor($resize_x, $resize_y);
     }
-    $src_image = ImageCreateFromJPEG($PATH); // FS READ
     
+    $src_image = ImageCreateFromJPEG($PATH); // FS READ
+
     // choose function based on fast mode and availability
     // note: function_exists is a poor test for GD functions
     //
     if ($CFG_resize_fast ||
-        !@ImageCopyResampled($new_image,
-                             $src_image,
-                             0, 0, 0, 0,
-                             $resize_x,
-                             $resize_y,
-                             $image_props[0],
-                             $image_props[1])) {
+        $CFG_use_old_gd) {
       ImageCopyResized($new_image,
                        $src_image,
                        0, 0, 0, 0,
@@ -99,8 +102,16 @@ if (!$CFG_debug_image) {
                        $resize_y,
                        $image_props[0],
                        $image_props[1]);
+    } else {     
+      ImageCopyResampled($new_image,
+                         $src_image,
+                         0, 0, 0, 0,
+                         $resize_x,
+                         $resize_y,
+                         $image_props[0],
+                         $image_props[1]);
     }
-    
+
     // verify cache enabled, path writable, and target size OK to be cached
     // 
     if ($CFG_cache_enable && 

@@ -6,13 +6,13 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: header.tpl,v 1.5 2004/09/30 01:02:16 jbyers Exp $
+// $Id: header.tpl,v 1.6 2004/09/30 20:51:23 jbyers Exp $
 //
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-  <title><?php print $CFG_album_name; ?></title>
-  <link rel="stylesheet" href="<?php print $CFG_url_template; ?>/scry.css" />
+  <title><?php print $T['title']; ?></title>
+  <link rel="stylesheet" href="<?php print $T['template']; ?>/scry.css" />
 </head>
 <body>
 

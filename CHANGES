@@ -5,18 +5,18 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: CHANGES,v 1.1 2004/09/30 01:37:39 jbyers Exp $
+// $Id: CHANGES,v 1.2 2004/09/30 20:51:22 jbyers Exp $
 //
 
 2004-09-30  James Byers  <jbyers@users.sf.net>
 
         * Version 1.1 released
-
         * GET and parsed URL variable styles supported [908140, 904816]
         * default theme cleanup
         * setup theme for verifying installation
         * number of required setup variables reduced [893228]
         * fast image resizing allowed per configuration flag [895939]
+        * rewritten resizing algorithm [892782]
         * PHP notices suppressed [904816, 895551]
         * optional list pagination [895463]
         * reform cache file names to avoid conflicts [1036798]
@@ -26,6 +26,7 @@
         * enforce cached image dimension restrictions [895468]
         * show link to original image [895466]
         * all source files updated to reference scry.org
+        * gracefully degrade to pre-2.0 GD functions [895913]
 
 2004-02-14  James Byers  <jbyers@users.sf.net>
 

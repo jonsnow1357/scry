@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.9 2004/09/30 01:35:51 jbyers Exp $
+// $Id: functions.php,v 1.10 2004/09/30 20:51:23 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -208,7 +208,7 @@ function directory_data($path, $url_path) {
 // )
 //
 function path_list($path) {
-  global $CFG_url_album, $CFG_album_name_short;
+  global $CFG_url_album, $CFG_album_name;
 
   $image_subdir_parts = array();
   if ($path != '') {
@@ -216,7 +216,7 @@ function path_list($path) {
   }
   
   $path_list[] = array('url'  => $CFG_url_album,
-                       'name' => $CFG_album_name_short);
+                       'name' => $CFG_album_name);
   
   for ($i = 0; $i < count($image_subdir_parts); $i++) {
     list($k, $v) = each($image_subdir_parts);

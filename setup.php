@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: setup.php,v 1.10 2004/09/30 20:54:00 jbyers Exp $
+// $Id: setup.php,v 1.11 2004/10/01 06:48:31 jbyers Exp $
 //
  
 /***************************************************************************
@@ -21,7 +21,7 @@ $CFG_url_images  = 'http://CHANGE_ME/photos/';
 $CFG_path_scry   = '/CHANGE_ME/docroot/scry';
 $CFG_path_images = '/CHANGE_ME/docroot/photos';
 
-$CFG_template    = 'debug';
+$CFG_template    = 'default';
 
 $CFG_album_title = 'photo album';
 $CFG_album_name  = 'photos';
@@ -32,12 +32,6 @@ $CFG_album_name  = 'photos';
  *                                                                         *
  ***************************************************************************/
 
-// URL variable mode, see DESIGN for details; if in doubt, use 'get'
-//   'get'  for GET variables
-//   'path' for path parsing
-//   
-$CFG_variable_mode = 'get';
-
 // default image sizes for thumbnails and image view page
 //
 $CFG_thumb_width   = 100;
@@ -45,6 +39,10 @@ $CFG_thumb_height  = 75;
 
 $CFG_image_width   = 640;
 $CFG_image_height  = 480;
+
+// images per page in list view; 0 for unlimited
+//
+$CFG_images_per_page = 0;
 
 // valid file extensions - case insensitive (jpg will also match JPG)
 //
@@ -55,30 +53,28 @@ $CFG_image_valid = array("jpg", "jpeg");
 $CFG_cache_outside_docroot  = false;
 $CFG_images_outside_docroot = false;
 
+// CFG_resize_fast set to true will make photo resizing faster but lower quality
+// CFG_use_old_gd will use pre-2.0 GD functions
+//
+$CFG_resize_fast = false;
+$CFG_use_old_gd  = false;
+
+// URL variable mode, see DESIGN for details; if in doubt, use 'get'
+//   'get'  for GET variables
+//   'path' for path parsing
+//   
+$CFG_variable_mode = 'get';
+
 // enable resized image cache in cache directory / directories
 //
-$CFG_cache_enable = false;
+$CFG_cache_enable = true;
 
-// CFG_resize_fast set to true will make photo resizing faster but lower quality
-// CFG_use_old_gd  will use GD 1.6 functions instead of 2.0 functions
+// use exifer library for exif tag parsing (http://www.jakeo.com/software/exif/)
+// to install exifer for Scry, download the library and place 'exif.php' and the 'makers' directory in the scry directory
+// PHP exif support is NOT required to use exifer
+// note that exifer uses 'short' PHP tags; you may have to change '<?' to '<?php' at the beginning of each exifer php file
 //
-$CFG_resize_fast     = false;
-$CFG_use_old_gd      = false;
-
-// if CFG_resize_external is set, scry will use this external command for image
-// resizing instead of internal GD, removing the GD dependency entirely
-// the following variables are replaced in the string:
-//
-//   name            purpose                 example
-//   -----           --------                --------
-//   %WIDTH%         target width            800
-//   %HEIGHT%        target height           600
-//   %SRC%           full source image path  /var/www/photos/album/image1.jpg
-//   %DEST%          full destination path   /var/www/scry/cache/800x600_album_image1.jpg
-//
-// example: ImageMagick convert
-//
-//$CFG_resize_external = '/usr/bin/convert -resize %WIDTH%x%HEIGHT% %SRC% %DEST%';
+$CFG_use_exifer = false;
 
 // turn on for debugging output on the image view
 // note: when on, images will appear broken and output text

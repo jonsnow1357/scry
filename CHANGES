@@ -1,0 +1,32 @@
+//
+// Scry - Simple PHP Photo Album
+// Copyright 2004 James Byers <jbyers@users.sf.net>
+// http://scry.org
+//
+// Scry is distributed under a BSD License.  See LICENSE for details.
+//
+// $Id: CHANGES,v 1.1 2004/09/30 01:37:39 jbyers Exp $
+//
+
+2004-09-30  James Byers  <jbyers@users.sf.net>
+
+        * Version 1.1 released
+
+        * GET and parsed URL variable styles supported [908140, 904816]
+        * default theme cleanup
+        * setup theme for verifying installation
+        * number of required setup variables reduced [893228]
+        * fast image resizing allowed per configuration flag [895939]
+        * PHP notices suppressed [904816, 895551]
+        * optional list pagination [895463]
+        * reform cache file names to avoid conflicts [1036798]
+        * relax var_export requirement, allowing PHP 4.0.6 and later [1021989]
+        * more stringent path read testing [918459]
+        * show error message for empty folder [895553]
+        * enforce cached image dimension restrictions [895468]
+        * show link to original image [895466]
+        * all source files updated to reference scry.org
+
+2004-02-14  James Byers  <jbyers@users.sf.net>
+
+        * Version 1.0 released

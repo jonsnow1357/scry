@@ -1,0 +1,98 @@
+//
+// Scry - Simple PHP Photo Album
+// Copyright 2004 James Byers <jbyers@users.sf.net>
+// http://scry.sourceforge.net
+//
+// Scry is distributed under a BSD License.  See LICENSE for details.
+//
+// $Id: README,v 1.1 2004/02/05 06:54:40 jbyers Exp $
+//
+
+What's the point of another photo album?
+----------------------------------------
+
+For my needs, photo gallery programs always try to do too much.  They
+add all kinds of extraneous metadata, force you to use a web interface
+to upload and manage photos, glom data (and sometimes photos!) in a
+database, and generally complicate your life.  Photos are quite happy
+in a normal filesystem, with a simple XHTML interface, image resizing,
+and strong template support for inclusion in an existing site.
+
+Scry is less than 500 lines of code, including configuration and
+comments, contained in 5 source files.  It doesn't use a database.  It
+has no administrative front end.  Change the filesystem and the image
+views will change without interaction on your part.  Image resizing
+and caching is done on the fly.  You can easily embed Scry into an
+existing site.  Scry is stable, secure, production-tested, and won't
+change out from under you in two versions.
+
+If you're looking for more advanced photo album features, I recommend
+Bharat Mediratta's excellent and comprehensive Gallery photo album
+system (http://gallery.sf.net).
+
+What's Required:
+----------------
+
+- PHP 4 > 4.0.6
+- GD 2.X built as a PHP module
+
+That's it!
+
+How to Install Scry:
+--------------------
+
+1. Untar Scry-1.0.tar.gz into your webserver's document root:
+
+   cd /path/to/webserver/document/root
+   tar zxvf /path/to/scry/Scry-1.0.tar.gz
+
+2. Create a directory for cached image files.  Set the permissions of this 
+   directory so the webserver can create files therein.
+
+   mkdir cache
+   chmod 777 cache
+
+3. Edit scry/setup.php; change the first six variables marked with 'CHANGEME'.
+
+   $CFG_path_images    the directory containing your photos
+   $CFG_path_cache     the cache directory you just created
+   $CFG_path_template  the template subdirectory you want Scry to use
+   $CFG_url_images     the URL to your photos directory (see also #1 below)
+   $CFG_url_cache      the URL to your cache directory (see also #1 below)
+   $CFG_url_album      the URL to your photo album, including index.php
+
+4. Point your browser to /scry/index.php.
+
+If all is well, you'll see directories and photos.
+
+Configuration Notes:
+--------------------
+
+1. Note that Scry can publish photos within your webserver's document
+   root or outside it on the filesystem.  If you set your 
+   $CFG_path_images or $CFG_path_cache outside your document root, be
+   sure to also set $CFG_cache_outside_docroot and
+   $CFG_images_outside_docroot to true.
+
+Known Limitations:
+------------------
+
+- Scry 1.0 has only been tested on Linux.  With correctly formatted path
+  names, Scry should work without modification on Windows.
+- Scry 1.0 supports only JPEG files.  Support for other formats is planned 
+  for a later release.
+
+Troubleshooting and Support:
+----------------------------
+
+See http://scry.sourceforge.net for troubleshooting advice and support.
+
+Bugs, Features:
+---------------
+
+Please submit bugs to the bug tracker:
+
+
+Please submit feature requests to the RFE tracker:
+
+

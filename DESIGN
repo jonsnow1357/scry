@@ -1,0 +1,94 @@
+//
+// Scry - Simple PHP Photo Album
+// Copyright 2004 James Byers <jbyers@users.sf.net>
+// http://scry.sourceforge.net
+//
+// Scry is distributed under a BSD License.  See LICENSE for details.
+//
+// $Id: DESIGN,v 1.1 2004/02/05 06:54:40 jbyers Exp $
+//
+
+Structure
+---------
+
+  setup.php      settings
+  index.php      controller
+  
+  views/         views
+    list.php     directory, thumbnail list 
+    view.php     picture details
+    image.php    image loader
+
+  templates/     XHTML template files
+
+Control Flow
+------------
+
+Scry has three views:
+
+  list   renders a listing of subdirectories and image thumbnails in the 
+         current directory
+
+  view   renders a single
+
+  image  loads and resizes the target image, optionally caching to disk
+
+index.php is the controller.  The view is selected based on the URL as
+described below.  index.php sets up any global variables and then
+punts control to the view.
+
+Variables
+---------
+
+- Configuration variables are all contained in setup.php and prefixed with 'CFG'.
+- Scry assumes that register_globals is off, and references only the $_SERVER 
+  superglobals.  $_GET and $_POST are not used.
+
+URLs
+----
+
+Scry passes all variables as parts of the URL path.  No GET or POST
+variables are used.  The URL is structured as follows:
+
+  http://[server]/[scry_path]/index.php/[action]/[v1]/[v2]/[v3]/[image_path]
+
+v1, v2, v3, ... are view dependent parameters.  Note that order is
+important and detailed in the URL parsing section of index.php.
+
+Examples:
+
+  list   http://scry.org/photos/index.php/list/2/path/to/images/
+  view   http://scry.org/photos/index.php/view/12/path/to/images/00024601.jpg
+  image  http://scry.org/photos/index.php/image/800/600/path/to/images/00024601.jpg
+
+Global Variables
+----------------
+
+Used in (c)ontroller, (l)ist, (v)iew, (i)mage
+
+  name           use  description
+  -------------  ---  -------------------------------------------------------
+
+Caching
+-------
+
+When the image state is initialized with the GET variable c=1, Scry
+will attempt to cache resized images.
+
+Based on $CFG_
+
+Caching is highly recommended.  If caching is off, or if you are
+viewing the page for the first time, it will render at a speed
+proprotional to the processing speed of your webserver and the number
+of images per page.
+
+Templates
+---------
+
+Templates are set up with variable maps contained in $T_vars.
+
+Debugging
+---------
+
+
+

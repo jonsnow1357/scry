@@ -5,13 +5,14 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: CHANGES,v 1.2 2004/09/30 20:51:22 jbyers Exp $
+// $Id: CHANGES,v 1.3 2004/10/01 06:54:03 jbyers Exp $
 //
 
-2004-09-30  James Byers  <jbyers@users.sf.net>
+2004-10-01  James Byers  <jbyers@users.sf.net>
 
         * Version 1.1 released
         * GET and parsed URL variable styles supported [908140, 904816]
+        * optional EXIF parsing via exifer [895462]
         * default theme cleanup
         * setup theme for verifying installation
         * number of required setup variables reduced [893228]

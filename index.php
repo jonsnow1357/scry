@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.5 2004/09/29 01:29:42 jbyers Exp $
+// $Id: index.php,v 1.6 2004/09/29 01:38:10 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -59,7 +59,7 @@ $URL_OFFSET = array_search('index.php', $URL_PARTS, true) + 1;
 
 // set up view state
 //
-switch ($URL_PARTS[$URL_OFFSET]) {
+@switch ($URL_PARTS[$URL_OFFSET]) {
 
  case 'list':
    $VARS[0]          = @$URL_PARTS[$URL_OFFSET + 1]; // page number

@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.14 2004/11/06 07:11:54 jbyers Exp $
+// $Id: index.php,v 1.15 2004/11/06 07:14:33 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -26,7 +26,7 @@
 //   $PATH  validated below, before FS calls
 //
 
-define('SCRY_VERSION', 1.1);
+define('SCRY_VERSION', 1.2);
 
 error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 1);

@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.13 2004/10/06 04:33:55 jbyers Exp $
+// $Id: functions.php,v 1.14 2004/10/06 19:51:06 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -262,5 +262,15 @@ function build_url($view, $index, $path) {
     return("$CFG_url_album?v=$view&i=$index&p=$path");
   } 
 } // function build_url
+
+// function resize($x, $y
+// calculates resized image based on image x1,y1 and bounding box x2,y2
+// returns array(x, y)
+//
+function calculate_resize($x1, $y1, $x2, $y2) {
+  (int)$resize_x = ($x1 <= $y1) ? round(($x1 * $y2)/$y1) : $x2;
+  (int)$resize_y = ($x1 >  $y1) ? round(($y1 * $x2)/$x1) : $y2;
+  return array($resize_x, $resize_y);
+} // calculate_resize
 
 ?>

@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.14 2004/10/06 04:35:57 jbyers Exp $
+// $Id: image.php,v 1.15 2004/10/06 19:50:56 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -56,8 +56,7 @@ if ('0' == $INDEX ||
 
 // calculate resize, bounded by $INDEX resolution
 //
-(int)$resize_x = ($image_props[0] <= $image_props[1]) ? round(($image_props[0] * $y)/$image_props[1]) : $x;
-(int)$resize_y = ($image_props[0] > $image_props[1]) ? round(($image_props[1] * $x)/$image_props[0]) : $y;
+list($resize_x, $resize_y) = calculate_resize($image_props[0], $image_props[1], $x, $y);
 
 // if caching enabled and file exists, redirect
 //

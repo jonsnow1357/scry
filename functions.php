@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.10 2004/09/30 20:51:23 jbyers Exp $
+// $Id: functions.php,v 1.11 2004/10/01 06:02:36 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -181,6 +181,7 @@ function directory_data($path, $url_path) {
 
     $files[] = array('name'       => $v['name'],
                      'index'      => $file_count,
+                     'path'       => "$path/$v[name]",
                      'thumb_url'  => $thumb_url,
                      'image_url'  => $image_url,
                      'view_url'   => build_url('view', $file_count, $v['url']),

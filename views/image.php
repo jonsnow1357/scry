@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.8 2004/09/30 01:36:35 jbyers Exp $
+// $Id: image.php,v 1.9 2004/09/30 02:58:06 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -74,25 +74,32 @@ if (!$CFG_debug_image) {
     }
   } else {
     // resample image, saving to disk if caching enabled
+    // note: function_exists is a poor test for GD functions
     //
-    $new_image = ImageCreateTrueColor($resize_x, $resize_y);
+    if (!@$new_image = ImageCreateTrueColor($resize_x, $resize_y)) {
+      $new_image = ImageCreate($resize_x, $resize_y);
+    }
     $src_image = ImageCreateFromJPEG($PATH); // FS READ
     
     // choose function based on fast mode and availability
+    // note: function_exists is a poor test for GD functions
     //
-    $resize_function = 'ImageCopyResized';
-    if (false === $CFG_resize_fast &&
-        function_exists('ImageCopyResampled')) {
-      $resize_function = 'ImageCopyResampled';
-    } // if fast mode
-    
-    $resize_function($new_image, 
-                     $src_image, 
-                     0, 0, 0, 0, 
-                     $resize_x,
-                     $resize_y,
-                     $image_props[0],
-                     $image_props[1]);
+    if ($CFG_resize_fast ||
+        !@ImageCopyResampled($new_image,
+                             $src_image,
+                             0, 0, 0, 0,
+                             $resize_x,
+                             $resize_y,
+                             $image_props[0],
+                             $image_props[1])) {
+      ImageCopyResized($new_image,
+                       $src_image,
+                       0, 0, 0, 0,
+                       $resize_x,
+                       $resize_y,
+                       $image_props[0],
+                       $image_props[1]);
+    }
     
     // verify cache enabled, path writable, and target size OK to be cached
     // 

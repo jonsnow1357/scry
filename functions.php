@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.11 2004/10/01 06:02:36 jbyers Exp $
+// $Id: functions.php,v 1.12 2004/10/02 01:15:00 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -90,6 +90,7 @@ function cache_test($url, $x, $y) {
 //   files => array(
 //     name,
 //     index,
+//     path,
 //     thumb_url,
 //     image_url,
 //     view_url,
@@ -254,7 +255,6 @@ function debug($type, $message = '') {
 //
 function build_url($view, $index, $path) {
   global $CFG_variable_mode, $CFG_url_album;
-
 
   if ($CFG_variable_mode == 'path') {
     return("$CFG_url_album/$view/$index/$path");

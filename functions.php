@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.17 2004/11/06 07:05:48 jbyers Exp $
+// $Id: functions.php,v 1.18 2004/11/29 00:42:56 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -139,7 +139,9 @@ function directory_data($path, $url_path) {
             eregi($valid_extensions, $filename)) { 
           $files_raw[] = array('name' => $filename,
                                'url'  => $url);
-        } else if (is_readable("$path/$filename") && is_dir("$path/$filename")) { // FS READ
+        } else if (is_readable("$path/$filename") && 
+                   is_dir("$path/$filename") &&
+                   substr($filename, 0, 1) != '_') { // FS READ
           $dirs_raw[]  = array('name' => $filename,
                                'url'  => $url);
         } // if ... else is_file or is_dir
@@ -259,9 +261,9 @@ function build_url($view, $index, $path) {
   global $CFG_variable_mode, $CFG_url_album;
 
   if ($CFG_variable_mode == 'path') {
-    return("$CFG_url_album/$view/$index/" . urlencode($path));
+    return("$CFG_url_album/$view/$index/" . str_replace('%2F', '/', urlencode($path)));
   } else {
-    return("$CFG_url_album?v=$view&i=$index&p=" . urlencode($path));
+    return("$CFG_url_album?v=$view&i=$index&p=" . str_replace('%2F', '/', urlencode($path)));
   } 
 } // function build_url
 

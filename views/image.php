@@ -6,7 +6,18 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.2 2004/02/08 07:39:02 jbyers Exp $
+// $Id: image.php,v 1.3 2004/02/10 21:16:54 jbyers Exp $
+//
+
+//////////////////////////////////////////////////////////////////////////////
+// Security
+//
+// Three variables are used in filesystem reads and writes (search for "FS" in
+// this file):
+//
+//   $PATH            validated in index.php
+//   $cache['path']   validated in functions.php/cache_test()
+//   $CFG_cache_path  static in setup.php
 //
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -14,11 +25,10 @@
 //   $VARS[0] -> image width x image height
 //
 
-list($x, $y) = parse_resolution($VARS[0]);
-
 // fetch image properties
 //
-$image_props = GetImageSize($PATH);
+list($x, $y) = parse_resolution($VARS[0]);
+$image_props = getimagesize($PATH); // FS READ
 
 if (!is_array($image_props)) {
   die('bad props');
@@ -36,16 +46,7 @@ if (($x > $y && $image_props[0] < $image_props[1]) || ($x < $y && $image_props[0
 
 // if caching enabled and file exists, redirect
 //
-$cache = cache_test("$IMAGE_DIR/$IMAGE_FILE", $resize_x, $resize_y);
-//$cache_file = $CFG_path_cache . '/' . $resize_x . 'x' . $resize_y . '_' . str_replace('/', '_', $IMAGE_DIR . '/' . $IMAGE_FILE);
-//$cache_url  = $CFG_url_cache  . '/' . $resize_x . 'x' . $resize_y . '_' . str_replace('/', '_', $IMAGE_DIR . '/' . $IMAGE_FILE);
-
-debug('aspect_ratio', $aspect_ratio);
-debug('resize_x',     $resize_x);
-debug('resize_y',     $resize_y);
-debug('image_x',      $image_props[0]);
-debug('image_y',      $image_props[1]);
-debug('cache',        $cache);
+$cache = cache_test("$IMAGE_DIR/$IMAGE_FILE", $resize_x, $resize_y); // FS SEE FUNCTION
 
 if (!$CFG_debug_image) {
   // redirect to or load image inline if cache hit
@@ -53,7 +54,7 @@ if (!$CFG_debug_image) {
   if ($cache['is_cached']) {
     if ($CFG_cache_outside_docroot) {
       header('Content-Type: image/jpeg');
-      readfile($cache['path']);
+      readfile($cache['path']);  // FS READ
       exit();
     } else {
       header('Location: ' . $cache['cache_url']);
@@ -69,7 +70,7 @@ if (!$CFG_debug_image) {
       // resample image, saving to disk if caching enabled
       //
       $new_image = ImageCreateTrueColor($resize_x, $resize_y);
-      $src_image = ImageCreateFromJPEG($PATH);
+      $src_image = ImageCreateFromJPEG($PATH); // FS READ
       ImageCopyResampled($new_image, 
                          $src_image, 
                          0, 0, 0, 0, 
@@ -78,8 +79,8 @@ if (!$CFG_debug_image) {
                          $image_props[0],
                          $image_props[1]);
       
-      if ($CFG_cache_enable && is_writable($CFG_path_cache)) {
-        ImageJPEG($new_image, $cache['path']);
+      if ($CFG_cache_enable && is_writable($CFG_path_cache)) { // FS READ
+        ImageJPEG($new_image, $cache['path']); // FS WRITE
         header('Location: '. $cache['cache_url']);
         exit();
       } else {
@@ -90,6 +91,12 @@ if (!$CFG_debug_image) {
     } // if image native size
   } // if cache
 } else {
+  debug('aspect_ratio', $aspect_ratio);
+  debug('resize_x',     $resize_x);
+  debug('resize_y',     $resize_y);
+  debug('image_x',      $image_props[0]);
+  debug('image_y',      $image_props[1]);
+  debug('cache',        $cache);
   print('<p>' . implode('<br>', $DEBUG_MESSAGES));
 } // if debug mode
 

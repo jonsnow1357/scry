@@ -6,7 +6,16 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: view.php,v 1.2 2004/02/08 07:39:02 jbyers Exp $
+// $Id: view.php,v 1.3 2004/02/10 21:16:54 jbyers Exp $
+//
+
+//////////////////////////////////////////////////////////////////////////////
+// Security
+//
+// include calls are based on static variables.
+//
+// No other filesystem calls take place in this view.  See 
+// functions.php/directory_data() for directory listing validation.
 //
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -16,7 +25,7 @@
 
 // fetch directory listing
 //
-$data = directory_data($PATH_BASEDIR, $IMAGE_DIR);
+$data = directory_data($PATH_BASEDIR, $IMAGE_DIR); // FS SEE FUNCTION
 
 // assign, display templates
 //
@@ -26,8 +35,8 @@ $T['prev']    =& $data['files'][($VARS[0] - 1)];
 $T['path']    =  path_list($IMAGE_DIR); 
 debug('T', $T);
 
-include("$CFG_path_template/header.tpl");
-include("$CFG_path_template/view.tpl");
-include("$CFG_path_template/footer.tpl");
+include("$CFG_path_template/header.tpl"); // FS READ
+include("$CFG_path_template/view.tpl");   // FS READ
+include("$CFG_path_template/footer.tpl"); // FS READ
 
 ?>

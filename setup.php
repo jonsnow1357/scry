@@ -6,24 +6,42 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: setup.php,v 1.6 2004/02/10 21:54:14 jbyers Exp $
+// $Id: setup.php,v 1.7 2004/03/02 07:31:33 jbyers Exp $
 //
+ 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *                                                                         *
+ * These five values must be set to install Scry.  See README for details. *
+ *                                                                         *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+$CFG_url_scry    = 'http://CHANGE_ME/scry/';
+$CFG_url_images  = 'http://CHANGE_ME/photos/';
+
+$CFG_path_scry   = '/CHANGE_ME/docroot/scry';
+$CFG_path_images = '/CHANGE_ME/docroot/photos';
+
+$CFG_template    = 'setup';
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *                                                                         *
+ * No further configuration changes are needed for a standard Scry setup.  *
+ *                                                                         *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 //////////////////////////////////////////////////////////////////////////////
-// configuration
+// advanced configuration
 //
 
-// paths without trailing slashes
+// derived URLs and paths
 //
-$CFG_url_album     = 'http://CHANGE_ME/scry/index.php';
+$CFG_url_album     = rtrim($CFG_url_scry, '/') . '/index.php';
 
-$CFG_path_images   = '/CHANGE_ME/docroot/photos';
-$CFG_path_cache    = '/CHANGE_ME/docroot/scry/cache';
-$CFG_path_template = '/CHANGE_ME/docroot/scry/templates/default';
+$CFG_path_cache    = rtrim($CFG_path_scry, '/') . '/cache';
+$CFG_path_template = rtrim($CFG_path_scry, '/') . '/templates/' . $CFG_template;
 
-$CFG_url_images    = 'http://CHANGE_ME/photos';
-$CFG_url_cache     = 'http://CHANGE_ME/scry/cache';
-$CFG_url_template  = 'http://CHANGE_ME/scry/templates/default';
+$CFG_url_cache     = rtrim($CFG_url_scry, '/') . '/cache';
+$CFG_url_template  = rtrim($CFG_url_scry, '/') . '/templates/' . $CFG_template;
 
 // are the cache and images directories outside the webserver's docroot?
 //

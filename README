@@ -5,7 +5,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: README,v 1.4 2004/02/10 21:46:13 jbyers Exp $
+// $Id: README,v 1.5 2004/03/02 07:31:33 jbyers Exp $
 //
 
 What's the point of another photo album?
@@ -59,21 +59,22 @@ How to Install Scry:
    mkdir cache
    chmod 777 cache
 
-4. Edit scry/setup.php; change the first seven variables marked with 'CHANGE_ME'.
+4. Edit setup.php and change the first four variables:
 
-   $CFG_url_album      the URL to your photo album, including index.php
+   $CFG_url_scry     the URL to your scry directory from step #2
+   $CFG_url_images   the URL to your photos directory
 
-   $CFG_path_images    the directory containing your photos
-   $CFG_path_cache     the cache directory you just created
-   $CFG_path_template  the template subdirectory you want Scry to use
+   $CFG_path_scry    the path to your scry directory from step #2
+   $CFG_path_images  the path to your photos directory
 
-   $CFG_url_images     the URL to your photos directory (see also #1 below)
-   $CFG_url_cache      the URL to your cache directory (see also #1 below)
-   $CFG_url_template   the URL to your template directory
+5. Leave $CFG_template set to 'setup' and point your browser to the
+   Scry URL you set in $CFG_url_scry.  You will see a set of tests to
+   make sure Scry is set up correctly.  Correct any warnings and reload
+   the page as instructed.
 
-5. Point your browser to /scry/index.php.
-
-If all is well, you'll see directories and photos.
+6. Once all the tests are green, edit scry/setup.php again and set
+   $CFG_template to 'default'.  Reload the Scry URL; if all is well,
+   you'll see directories and photos.
 
 Notes:
 ------

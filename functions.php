@@ -6,7 +6,13 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.2 2004/02/08 07:39:02 jbyers Exp $
+// $Id: functions.php,v 1.3 2004/02/08 08:50:25 jbyers Exp $
+//
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+// !!                                                            !!
+// !! NOTE - this file does not need to be edited; see setup.php !!
+// !!                                                            !!
+// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //
 
 // function parse_resolution(string $res)

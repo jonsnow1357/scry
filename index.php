@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.2 2004/02/08 07:39:02 jbyers Exp $
+// $Id: index.php,v 1.3 2004/02/08 08:50:25 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -51,20 +51,20 @@ $URL_OFFSET = array_search('index.php', $URL_PARTS, true) + 1;
 switch ($URL_PARTS[$URL_OFFSET]) {
 
  case 'list':
-   $VARS[0]   = $URL_PARTS[$URL_OFFSET + 1]; // page number
-   $IMAGE_DIR = implode('/', array_slice($URL_PARTS, $URL_OFFSET + 2));
-   $VIEW      = 'list';
+   $VARS[0]          = @$URL_PARTS[$URL_OFFSET + 1]; // page number
+   $IMAGE_DIR        = implode('/', array_slice($URL_PARTS, $URL_OFFSET + 2));
+   $VIEW             = 'list';
    break;
 
  case 'view':
-   $VARS[0]          = $URL_PARTS[$URL_OFFSET + 1]; // image index
+   $VARS[0]          = @$URL_PARTS[$URL_OFFSET + 1]; // image index
    $IMAGE_DIR        = implode('/', array_slice($URL_PARTS, $URL_OFFSET + 2, -1));
    list($IMAGE_FILE) = array_slice($URL_PARTS, -1);
    $VIEW             = 'view';
    break;
 
  case 'image':
-   $VARS[0]          = $URL_PARTS[$URL_OFFSET + 1]; // image width
+   $VARS[0]          = @$URL_PARTS[$URL_OFFSET + 1]; // image width
    $IMAGE_DIR        = implode('/', array_slice($URL_PARTS, $URL_OFFSET + 2, -1));
    list($IMAGE_FILE) = array_slice($URL_PARTS, -1);
    $VIEW             = 'image';

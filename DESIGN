@@ -5,7 +5,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: DESIGN,v 1.4 2004/02/10 21:46:13 jbyers Exp $
+// $Id: DESIGN,v 1.5 2004/09/29 01:31:44 jbyers Exp $
 //
 
 Structure
@@ -93,6 +93,9 @@ Caching is highly recommended.  If caching is off, or if you are
 viewing the page for the first time, the page will render at a speed
 proprotional to the processing speed of your webserver and the number
 of images on the page.
+
+Only two sizes of images will be cached: thumbnail size or view size,
+as set by $CFG_thumb_(width|height) and $CFG_view_(width|height).
 
 Images Outside Docroot
 ----------------------

@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: view.php,v 1.6 2004/10/01 06:02:17 jbyers Exp $
+// $Id: view.php,v 1.7 2004/10/01 06:25:20 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -30,12 +30,22 @@ $data = directory_data($PATH_BASEDIR, $IMAGE_DIR); // FS SEE FUNCTION
 $image_size = getimagesize($data['files'][$INDEX]['path']); // FS READ
 $file_size  = filesize($data['files'][$INDEX]['path']); // FS READ
 
+// optionally fetch exifer data
+//
+if ($CFG_use_exifer) {
+  include_once('exif.php');
+  $exif_data = read_exif_data_raw($data['files'][$INDEX]['path'], 0);
+}
+
 //////////////////////////////////////////////////////////////////////////////
 // assign, display templates
 //
-$T['current']               =& $data['files'][$INDEX]; 
-$T['current']['image_size'] = $image_size[0] . 'x' . $image_size[1];
-$T['current']['file_size']  = round($file_size / 1024, 0) . ' KB';
+$T['current']                =& $data['files'][$INDEX]; 
+$T['current']['image_size']  = $image_size[0] . 'x' . $image_size[1];
+$T['current']['file_size']   = round($file_size / 1024, 0) . ' KB';
+if ($CFG_use_exifer) {
+  $T['current']['exif_data'] =& $exif_data; 
+}
 
 $T['next']    =& $data['files'][($INDEX + 1)]; 
 $T['prev']    =& $data['files'][($INDEX - 1)]; 

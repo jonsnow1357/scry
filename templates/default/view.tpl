@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: view.tpl,v 1.2 2004/02/08 08:52:46 jbyers Exp $
+// $Id: view.tpl,v 1.3 2004/09/29 23:48:34 jbyers Exp $
 //
 ?>
 
@@ -16,15 +16,19 @@
 
       <table align="center" cellpadding="0" cellspacing="0" border="0">
         <tr>
-          <td width="100%" colspan="2" align="center">
+          <td width="100%" colspan="3" align="center">
             <div class="images">
-            <img src="<?php print $T['current']['image_url']; ?>" alt="<?php print $T['current']['name']; ?>" /><br /><?php print $T['current']['name']; ?>
+            <img src="<?php print $T['current']['image_url']; ?>" alt="<?php print $T['current']['name']; ?>" />
+            <br />
+            <?php print $T['current']['name']; ?> 
+            <br />
+            <a href="<?php print($T['current']['raw_url']); ?>"><?php print($T['current']['image_size'] . ', ' . $T['current']['file_size']); ?></a> 
             </div>
           </td>
         </tr>
 
         <tr>
-          <td width="50%" align="left" valign="bottom">
+          <td width="30%" align="left" valign="bottom">
             <div class="images">
 <?php 
 if (is_array($T['prev'])) {
@@ -35,7 +39,10 @@ if (is_array($T['prev'])) {
 ?>
             </div>
           </td>
-          <td width="50%" align="right" valign="bottom">
+          <td width="40%" align="middle" valign="bottom">
+             <?php // print_r($T['current']['exif_data']); ?>
+          </td>
+          <td width="30%" align="right" valign="bottom">
             <div class="images">
 <?php 
 if (is_array($T['next'])) {

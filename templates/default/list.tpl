@@ -6,12 +6,14 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: list.tpl,v 1.6 2004/09/29 01:51:30 jbyers Exp $
+// $Id: list.tpl,v 1.7 2004/09/29 23:48:34 jbyers Exp $
 //
 ?>
 
 <table cellpadding="5" cellspacing="0" width="85%" border="0" align="center">
-<?php if (@count($T['dirs'])) { ?>
+<?php 
+if (@count($T['dirs'])) { 
+?>
   <tr>
     <td width="100%" id="t_slim" align="center">
 
@@ -24,7 +26,10 @@ while(list($k, $d) = @each($T['dirs'])) {
     </td>
   </tr>
 
-<?php } else if (@count($T['files'])) { ?>
+<?php 
+} // if dirs
+if (@count($T['files'])) { 
+?>
 
   <tr>
     <td id="t_main" width="100%">
@@ -40,7 +45,13 @@ while(list($k, $f) = @each($T['files'])) {
     </td>
   </tr>
 
-<?php } else { ?>
+<?php 
+
+} // if files
+
+if (!@count($T['dirs']) && !@count($T['files'])) { 
+
+?>
 
   <tr>
     <td id="t_main" width="100%">
@@ -50,6 +61,6 @@ while(list($k, $f) = @each($T['files'])) {
     </td>
   </tr>
 
-<?php } // if...else ?>
+<?php } // if no dirs or files ?>
 
 </table>

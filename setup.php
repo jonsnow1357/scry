@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: setup.php,v 1.9 2004/09/30 20:51:23 jbyers Exp $
+// $Id: setup.php,v 1.10 2004/09/30 20:54:00 jbyers Exp $
 //
  
 /***************************************************************************
@@ -15,11 +15,11 @@
  *                                                                         *
  ***************************************************************************/
 
-$CFG_url_scry    = 'http://jbyers.com/scry/';
-$CFG_url_images  = 'http://jbyers.com/photos-nopub/';
+$CFG_url_scry    = 'http://CHANGE_ME/scry/';
+$CFG_url_images  = 'http://CHANGE_ME/photos/';
 
-$CFG_path_scry   = '/var/www/jbyers.com/docroot/scry';
-$CFG_path_images = '/var/www/jbyers.com/docroot/photos-nopub';
+$CFG_path_scry   = '/CHANGE_ME/docroot/scry';
+$CFG_path_images = '/CHANGE_ME/docroot/photos';
 
 $CFG_template    = 'debug';
 

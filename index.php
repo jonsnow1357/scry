@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.7 2004/09/29 01:40:36 jbyers Exp $
+// $Id: index.php,v 1.8 2004/09/30 01:35:51 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -38,54 +38,64 @@ require_once('functions.php');
 // global variable, template initialization, headers
 //
 
-$URL_PARTS     = array(); // URL parts
-$URL_OFFSET    = 0;       // $URL offset of view name
-$VARS          = array(); // URL variables
 $T             = array(); // template variables
 $VIEW          = '';      // view name
+$INDEX         = '';      // index variable (offset or image dimension)
 $IMAGE_FILE    = '';      // image filename ('IMG20040201.jpg')
 $IMAGE_DIR     = '';      // image directory under $CFG_path_images ('Family/2003')
 $PATH          = '';      // full filesystem path to directory / image
 $PATH_BASEDIR  = '';      // filesystem path to directory / image without filename
 
-header('X-Powered-By: Scry 1.0 - http://scry.sourceforge.net');
+header('X-Powered-By: Scry 1.1 - http://scry.org');
 
 //////////////////////////////////////////////////////////////////////////////
-// parse URL
+// parse URL or GET parameters
 //
 
-$URL_PARTS  = explode('/', trim(addslashes(urldecode($_SERVER['REQUEST_URI'])), '/'));
-$URL_OFFSET = array_search('index.php', $URL_PARTS, true) + 1;
+$url_parts     = array(); // URL or path parts
+$url_offset    = 0;       // view offset in $URL
 
-// set up view state
+// set URL parts, view, index
 //
-switch ($URL_PARTS[@$URL_OFFSET]) {
+if ($CFG_variable_mode == 'path') {
+  $url_parts  = explode('/', trim(urldecode($_SERVER['REQUEST_URI']), '/'));
+  $url_offset = array_search('index.php', $url_parts, true) + 1;
+  @$VIEW      = $url_parts[$url_offset];
+  @$INDEX     = $url_parts[$url_offset + 1];
+} else {
+  $url_parts  = explode('/', trim(urldecode($_GET['p']), '/'));
+  @$VIEW      = $_GET['v'];
+  @$INDEX     = $_GET['i'];
+} // if path mode
 
- case 'list':
-   $VARS[0]          = @$URL_PARTS[$URL_OFFSET + 1]; // page number
-   $IMAGE_DIR        = implode('/', array_slice($URL_PARTS, $URL_OFFSET + 2));
-   $VIEW             = 'list';
-   break;
-
- case 'view':
-   $VARS[0]          = @$URL_PARTS[$URL_OFFSET + 1]; // image index
-   $IMAGE_DIR        = implode('/', array_slice($URL_PARTS, $URL_OFFSET + 2, -1));
-   list($IMAGE_FILE) = array_slice($URL_PARTS, -1);
-   $VIEW             = 'view';
-   break;
-
- case 'image':
-   $VARS[0]          = @$URL_PARTS[$URL_OFFSET + 1]; // image width
-   $IMAGE_DIR        = implode('/', array_slice($URL_PARTS, $URL_OFFSET + 2, -1));
-   list($IMAGE_FILE) = array_slice($URL_PARTS, -1);
-   $VIEW             = 'image';
-   break;
-
- default:
-   header("Location: $CFG_url_album/list/");
+// redirect bad action to root list
+//
+if (!ereg('^(image|list|view)$', $VIEW)) {
+   if ($CFG_variable_mode == 'path') {
+     header("Location: $CFG_url_album/list/");
+   } else {
+     header("Location: $CFG_url_album?v=list");
+   }
    exit();
+} // if bad action
 
-} // switch $VIEW
+// set image directory, paths based on view
+//
+if ($CFG_variable_mode == 'path') {
+  if ($VIEW == 'list') {
+    $IMAGE_DIR = implode('/', array_slice($url_parts, $url_offset + 2));
+  } else {
+    $IMAGE_DIR        = implode('/', array_slice($url_parts, $url_offset + 2, -1));
+    list($IMAGE_FILE) = array_slice($url_parts, -1);    
+  } // if
+} else {
+  if ($VIEW == 'list') {
+    $IMAGE_DIR = $_GET['p'];
+  } else {
+    $IMAGE_DIR        = implode('/', array_slice($url_parts, 0, -1));
+    list($IMAGE_FILE) = array_slice($url_parts, -1);
+  } // if
+} // if path mode
 
 //////////////////////////////////////////////////////////////////////////////
 // set up path derivative variables
@@ -117,10 +127,12 @@ if (!is_readable($PATH)) { // FS READ
 // debugging
 //
 
-debug('URL_PARTS',    $URL_PARTS);
-debug('URL_OFFSET',   $URL_OFFSET);
-debug('VARS',         $VARS);
+debug('url_parts',    $url_parts);  unset($url_parts);
+debug('url_offset',   $url_offset); unset($url_offset);
+
+debug('GET',          $_GET);
 debug('VIEW',         $VIEW);
+debug('INDEX',        $INDEX);
 debug('IMAGE_FILE',   $IMAGE_FILE);
 debug('IMAGE_DIR',    $IMAGE_DIR);
 debug('PATH',         $PATH);

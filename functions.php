@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.8 2004/09/30 00:08:58 jbyers Exp $
+// $Id: functions.php,v 1.9 2004/09/30 01:35:51 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -44,7 +44,7 @@ function path_security_check($victim, $test) {
 // to a two-element array
 //
 function parse_resolution($res) {
-  return(explode('x', str_replace(' ', '', strtolower($res))));
+  return(explode('x', ereg_replace('[^0-9x]', '', strtolower($res))));
 } // function parse_resolution
 
 // function cache_test(string $url, int $x, int $y) {
@@ -90,13 +90,10 @@ function cache_test($url, $x, $y) {
 //   files => array(
 //     name,
 //     index,
-//     image_size (HxW),
-//     file_size (Kb),
 //     thumb_url,
 //     image_url,
 //     view_url,
-//     raw_url,
-//     exif_data
+//     raw_url
 //   ),
 //   directories => array(
 //     name,
@@ -109,7 +106,7 @@ function cache_test($url, $x, $y) {
 //       '.' and '..' are not referenced in the directory array
 //
 function directory_data($path, $url_path) {
-  global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_view_width, $CFG_view_height, $CFG_path_images;
+  global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_image_width, $CFG_image_height, $CFG_path_images;
 
   // put CFG_image_valid array into eregi form
   //
@@ -171,37 +168,30 @@ function directory_data($path, $url_path) {
     if ($thumb['is_cached']) {
       $thumb_url = $thumb['cache_url'];
     } else {
-      $thumb_url = "$CFG_url_album/image/$CFG_thumb_width" . "x$CFG_thumb_height/" . $v['url'];
+      $thumb_url = build_url('image', $CFG_thumb_width . 'x' . $CFG_thumb_height, $v['url']);
     }
 
     if ($image['is_cached']) {
       $image_url = $image['cache_url'];
     } else {
-      $image_url = "$CFG_url_album/image/$CFG_view_width" . "x$CFG_view_height/" . $v['url'];
+      $image_url = build_url('image', $CFG_image_width . 'x' . $CFG_image_height, $v['url']);
     }
 
     path_security_check("$path/$v[name]", $CFG_path_images);
 
-    $image_size = getimagesize("$path/$v[name]"); // FS READ
-    $file_size = filesize("$path/$v[name]"); // FS READ
-    $exif_data = array();
-
     $files[] = array('name'       => $v['name'],
                      'index'      => $file_count,
-                     'image_size' => "$image_size[0]x$image_size[1]",
-                     'file_size'  => round($file_size / 1024, 0) . ' KB',
                      'thumb_url'  => $thumb_url,
                      'image_url'  => $image_url,
-                     'view_url'   => "$CFG_url_album/view/$file_count/" . $v['url'],
-                     'raw_url'    => "$CFG_url_album/image/$image_size[0]x$image_size[1]/" . $v['url'],
-                     'exif_data'  => $exif_data);
+                     'view_url'   => build_url('view', $file_count, $v['url']),
+                     'raw_url'    => build_url('image', '0', $v['url'])); // 0 index for raw image
     $file_count++;
   }
 
   while (list($k, $v) = each($dirs_raw)) {
     $dirs[] = array('name'     => $v['name'],
                     'index'    => $dir_count,
-                    'list_url' => "$CFG_url_album/list/0/" . $v['url']);
+                    'list_url' => build_url('list', '0', $v['url']));
     $dir_count++;
   }
 
@@ -230,7 +220,7 @@ function path_list($path) {
   
   for ($i = 0; $i < count($image_subdir_parts); $i++) {
     list($k, $v) = each($image_subdir_parts);
-    $path_list[] = array('url'  => "$CFG_url_album/list/0/" . implode('/', array_slice($image_subdir_parts, 0, $i + 1)),
+    $path_list[] = array('url'  => build_url('list', '0', implode('/', array_slice($image_subdir_parts, 0, $i + 1))),
                          'name' => $image_subdir_parts[$i]);
   } // for
 
@@ -258,5 +248,18 @@ function debug($type, $message = '') {
 
   $DEBUG_MESSAGES[] = "[$type]: $message";
 } // function debug
+
+// return a URL string based on view, index, path components and CFG vars
+//
+function build_url($view, $index, $path) {
+  global $CFG_variable_mode, $CFG_url_album;
+
+
+  if ($CFG_variable_mode == 'path') {
+    return("$CFG_url_album/$view/$index/$path");
+  } else {
+    return("$CFG_url_album?v=$view&i=$index&p=$path");
+  } 
+} // function build_url
 
 ?>

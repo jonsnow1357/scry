@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.16 2004/11/02 01:46:40 jbyers Exp $
+// $Id: functions.php,v 1.17 2004/11/06 07:05:48 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -28,10 +28,12 @@
 // function path_security_check(string $victim, string $test)
 //
 // the resolved path of $victim must be below $test on the filesystem
+// check only if victim exists; otherwise realpath cannot resolve path
 //
 function path_security_check($victim, $test) {
   
-  if (eregi("^" . rtrim('/', $test) . ".*", rtrim('/', realpath($victim)))) {
+  if (!realpath($victim) ||
+      eregi("^" . rtrim($test, '/') . ".*", rtrim(realpath($victim), '/'))) {
     return true;
   } 
 

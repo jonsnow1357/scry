@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: view.php,v 1.7 2004/10/01 06:25:20 jbyers Exp $
+// $Id: view.php,v 1.8 2004/10/06 20:00:37 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -41,8 +41,9 @@ if ($CFG_use_exifer) {
 // assign, display templates
 //
 $T['current']                =& $data['files'][$INDEX]; 
-$T['current']['image_size']  = $image_size[0] . 'x' . $image_size[1];
-$T['current']['file_size']   = round($file_size / 1024, 0) . ' KB';
+$T['current']['image_size']  =& $image_size;
+$T['current']['view_size']   =  calculate_resize($image_size[0], $image_size[1], $CFG_image_width, $CFG_image_height);
+$T['current']['file_size']   =  round($file_size / 1024, 0) . ' KB';
 if ($CFG_use_exifer) {
   $T['current']['exif_data'] =& $exif_data; 
 }

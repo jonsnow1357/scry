@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.5 2004/09/29 02:09:16 jbyers Exp $
+// $Id: functions.php,v 1.6 2004/09/29 05:08:00 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -86,9 +86,12 @@ function cache_test($url, $x, $y) {
 //   files => array(
 //     name,
 //     index,
-//     image_size,
+//     image_size (HxW),
+//     file_size (Kb),
 //     thumb_url,
+//     image_url,
 //     view_url,
+//     raw_url,
 //     exif_data
 //   ),
 //   directories => array(
@@ -103,6 +106,10 @@ function cache_test($url, $x, $y) {
 //
 function directory_data($path, $url_path) {
   global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_view_width, $CFG_view_height, $CFG_path_images;
+
+  // put CFG_image_valid array into eregi form
+  //
+  $valid_extensions = '(.' . implode('|.', $CFG_image_valid) . ')$';
 
   path_security_check($path, $CFG_path_images);
 
@@ -123,7 +130,9 @@ function directory_data($path, $url_path) {
 
         path_security_check("$path/$filename", $CFG_path_images);
 
-        if (is_readable("$path/$filename") && is_file("$path/$filename") && eregi($CFG_image_valid, $filename)) { // FS READ
+        if (is_readable("$path/$filename") && // FS READ
+            is_file("$path/$filename")     && // FS READ
+            eregi($valid_extensions, $filename)) { 
           $files_raw[] = array('name' => $filename,
                                'url'  => $url);
         } else if (is_readable("$path/$filename") && is_dir("$path/$filename")) { // FS READ
@@ -170,15 +179,17 @@ function directory_data($path, $url_path) {
     path_security_check("$path/$v[name]", $CFG_path_images);
 
     $image_size = getimagesize("$path/$v[name]"); // FS READ
-
+    $file_size = filesize("$path/$v[name]"); // FS READ
     $exif_data = array();
 
     $files[] = array('name'       => $v['name'],
                      'index'      => $file_count,
                      'image_size' => "$image_size[0]x$image_size[1]",
+                     'file_size'  => round($file_size / 1024, 0) . ' KB',
                      'thumb_url'  => $thumb_url,
                      'image_url'  => $image_url,
                      'view_url'   => "$CFG_url_album/view/$file_count/" . $v['url'],
+                     'raw_url'    => "$CFG_url_album/image/$image_size[0]x$image_size[1]/" . $v['url'],
                      'exif_data'  => $exif_data);
     $file_count++;
   }

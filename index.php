@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.11 2004/10/01 00:35:08 jbyers Exp $
+// $Id: index.php,v 1.12 2004/10/02 01:22:14 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -116,11 +116,11 @@ if ($IMAGE_FILE != '' && $IMAGE_DIR != '') {
 path_security_check($PATH, $CFG_path_images);
 
 if (!is_readable($PATH)) { // FS READ
-  die("$PATH does not exist or is not readable by the webserver");
+  die("$PATH does not exist or is not readable by the webserver - please verify settings in setup.php");
 } else if (($VIEW == 'image' || $VIEW == 'view') && !is_file($PATH)) { // FS READ
-  die("$PATH is not an image file");
+  die("$PATH is not a valid image file or cannot be read");
 } else if ($VIEW == 'list' && !is_dir($PATH)) { // FS READ
-  die("$PATH is not a directory");
+  die("$PATH is not a directory or cannot be read");
 }
 
 //////////////////////////////////////////////////////////////////////////////

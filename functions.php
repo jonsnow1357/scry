@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.4 2004/02/10 21:08:40 jbyers Exp $
+// $Id: functions.php,v 1.5 2004/09/29 02:09:16 jbyers Exp $
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
@@ -88,7 +88,8 @@ function cache_test($url, $x, $y) {
 //     index,
 //     image_size,
 //     thumb_url,
-//     view_url
+//     view_url,
+//     exif_data
 //   ),
 //   directories => array(
 //     name,
@@ -122,10 +123,10 @@ function directory_data($path, $url_path) {
 
         path_security_check("$path/$filename", $CFG_path_images);
 
-        if (is_file("$path/$filename") && eregi($CFG_image_valid, $filename)) { // FS READ
+        if (is_readable("$path/$filename") && is_file("$path/$filename") && eregi($CFG_image_valid, $filename)) { // FS READ
           $files_raw[] = array('name' => $filename,
                                'url'  => $url);
-        } else if (is_dir("$path/$filename")) { // FS READ
+        } else if (is_readable("$path/$filename") && is_dir("$path/$filename")) { // FS READ
           $dirs_raw[]  = array('name' => $filename,
                                'url'  => $url);
         } // if ... else is_file or is_dir
@@ -170,12 +171,15 @@ function directory_data($path, $url_path) {
 
     $image_size = getimagesize("$path/$v[name]"); // FS READ
 
+    $exif_data = array();
+
     $files[] = array('name'       => $v['name'],
                      'index'      => $file_count,
                      'image_size' => "$image_size[0]x$image_size[1]",
                      'thumb_url'  => $thumb_url,
                      'image_url'  => $image_url,
-                     'view_url'   => "$CFG_url_album/view/$file_count/" . $v['url']);
+                     'view_url'   => "$CFG_url_album/view/$file_count/" . $v['url'],
+                     'exif_data'  => $exif_data);
     $file_count++;
   }
 
@@ -231,7 +235,10 @@ function debug($type, $message = '') {
   } // if
   
   if (is_array($message) || is_object($message)) {
-    $message = var_export($message, true);
+    ob_start();
+    var_dump($message);
+    $message = ob_get_contents();
+    ob_end_clean();
   } // if
 
   $DEBUG_MESSAGES[] = "[$type]: $message";

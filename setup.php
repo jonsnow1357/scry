@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: setup.php,v 1.4 2004/02/08 09:09:26 jbyers Exp $
+// $Id: setup.php,v 1.5 2004/02/10 21:21:21 jbyers Exp $
 //
 
 //////////////////////////////////////////////////////////////////////////////
@@ -15,15 +15,15 @@
 
 // paths without trailing slashes
 //
-$CFG_url_album     = 'http://jbyers.com/scry/index.php';
+$CFG_url_album     = 'http://CHANGE_ME/scry/index.php';
 
-$CFG_path_images   = '/var/www/jbyers.com/docroot/photos';
-$CFG_path_cache    = '/var/www/jbyers.com/docroot/scry/cache';
-$CFG_path_template = '/var/www/jbyers.com/docroot/scry/templates/default';
+$CFG_path_images   = '/CHANGE_ME/docroot/photos';
+$CFG_path_cache    = '/CHANGE_ME/docroot/scry/cache';
+$CFG_path_template = '/CHANGE_ME/docroot/scry/templates/default';
 
-$CFG_url_images    = 'http://jbyers.com/photos';
-$CFG_url_cache     = 'http://jbyers.com/scry/cache';
-$CFG_url_template  = 'http://jbyers.com/scry/templates/default';
+$CFG_url_images    = 'http://CHANGE_ME/photos';
+$CFG_url_cache     = 'http://CHANGE_ME/scry/cache';
+$CFG_url_template  = 'http://CHANGE_ME/templates/default';
 
 // are the cache and images directories outside the webserver's docroot?
 //

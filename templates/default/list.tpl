@@ -6,7 +6,7 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: list.tpl,v 1.5 2004/09/29 01:44:53 jbyers Exp $
+// $Id: list.tpl,v 1.6 2004/09/29 01:51:30 jbyers Exp $
 //
 ?>
 
@@ -23,9 +23,9 @@ while(list($k, $d) = @each($T['dirs'])) {
 
     </td>
   </tr>
-<?php } // if ?>
 
-<?php if (@count($T['files'])) { ?>
+<?php } else if (@count($T['files'])) { ?>
+
   <tr>
     <td id="t_main" width="100%">
       <div class="images">
@@ -33,11 +33,23 @@ while(list($k, $d) = @each($T['dirs'])) {
 <?php
 while(list($k, $f) = @each($T['files'])) { 
   print('<a href="' . $f['view_url'] . '"><img src="' . $f['thumb_url'] . '" alt="' . $f['name'] . '" border="0"' . " /></a>\n");
-}
+} // while
 ?>
 
       </div>
     </td>
   </tr>
-<?php } // if ?>
+
+<?php } else { ?>
+
+  <tr>
+    <td id="t_main" width="100%">
+      <div class="images">
+        <p align="center">No photos or folders found</p>
+      </div>
+    </td>
+  </tr>
+
+<?php } // if...else ?>
+
 </table>

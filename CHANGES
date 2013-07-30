@@ -8,6 +8,21 @@
 // $Id: CHANGES,v 1.3 2004/10/01 06:54:03 jbyers Exp $
 //
 
+2004-11-06  James Byers  <jbyers@users.sf.net>
+
+        * Version 1.2 released
+        * restore old table theme
+        * correct root-level image case [1060684]
+        * rtrim parameters error [1051033]
+        * jpeg compression [1060541]
+        * correct sloppy fix for urlencode bug [1044858]
+        * resize mode and fixes; height, width tags on image view
+        * urlencode constructed URL [1044858]
+        * remove slashes from $_GET [1044858]
+        * ignore_user_abort [1040423]
+        * correct cache outside docroot case [1041177]
+        * scrub paths [1039670]
+
 2004-10-01  James Byers  <jbyers@users.sf.net>
 
         * Version 1.1 released

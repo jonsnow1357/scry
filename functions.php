@@ -31,28 +31,30 @@
 // check only if victim exists; otherwise realpath cannot resolve path
 //
 function path_security_check($victim, $test) {
-  
+
   if (!realpath($victim) ||
-      eregi("^" . rtrim($test, '/') . ".*", rtrim(realpath($victim), '/'))) {
+      //eregi("^" . rtrim($test, '/') . ".*", rtrim(realpath($victim), '/'))) {
+      preg_match("/^" . rtrim('/', $test) . ".*/", rtrim('/', realpath($victim)))) {
     return true;
-  } 
+  }
 
   die("path security check failed: $victim - $test");
 } // function path_security_check
 
 // function parse_resolution(string $res)
 //
-// converts a string dimension (800x600, 800X600, 800 x 600, 800 X 600) 
+// converts a string dimension (800x600, 800X600, 800 x 600, 800 X 600)
 // to a two-element array
 //
 function parse_resolution($res) {
-  return(explode('x', ereg_replace('[^0-9x]', '', strtolower($res))));
+  //return(explode('x', ereg_replace('[^0-9x]', '', strtolower($res))));
+  return(explode('x', preg_replace('/[^0-9x]/', '', strtolower($res))));
 } // function parse_resolution
 
 // function cache_test(string $url, int $x, int $y) {
-// 
+//
 // creates the file's cache path and tests for existance in the cache
-// returns: 
+// returns:
 // array(
 //   is_cached,
 //   name,
@@ -62,12 +64,13 @@ function parse_resolution($res) {
 //
 function cache_test($url, $x, $y) {
   global $CFG_cache_enable, $CFG_path_cache, $CFG_url_cache;
-  
+
   // cache paths and URL references to images must be URL and filesystem safe
   // pure urlencoding would require double-urlencoding image URLs -- confusing
   // instead replace %2f (/) with ! and % with $ (!, $ are URL safe) for readability and consistency between two versions
   //
-  ereg("(.*)(\.[A-Za-z0-9]+)$", $url, $matches);
+  //ereg("(.*)(\.[A-Za-z0-9]+)$", $url, $matches);
+  preg_match("/(.*)(\.[A-Za-z0-9]+)$/", $url, $matches);
   $result              = array();
   $result['is_cached'] = false;
   $result['name']      = str_replace('%', '$', str_replace('%2F', '!', urlencode($matches[1]))) . '_' . $x . 'x' . $y . $matches[2];
@@ -84,7 +87,7 @@ function cache_test($url, $x, $y) {
 } // function cache_test
 
 // function directory_data(string $path, string $url_path)
-// 
+//
 // walks the specified directory and returns an array containing image file
 // and directory details:
 //
@@ -111,9 +114,15 @@ function cache_test($url, $x, $y) {
 function directory_data($path, $url_path) {
   global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_image_width, $CFG_image_height, $CFG_path_images, $CFG_cache_outside_docroot;
 
+  //compensate for switching away from eregi
+  $CFG_image_valid_i = array();
+  foreach($CFG_image_valid as $e) {
+    $CFG_image_valid_i[] = $e;
+    $CFG_image_valid_i[] = strtoupper($e);
+  }
   // put CFG_image_valid array into eregi form
   //
-  $valid_extensions = '(.' . implode('|.', $CFG_image_valid) . ')$';
+  $valid_extensions = '(.' . implode('|.', $CFG_image_valid_i) . ')$';
 
   path_security_check($path, $CFG_path_images);
 
@@ -123,7 +132,7 @@ function directory_data($path, $url_path) {
   $dirs_raw  = array();
   if ($h_dir = opendir($path)) { // FS READ
     while (false !== ($filename = readdir($h_dir))) { // FS READ
-      if ($filename != '.' && $filename != '..') { 
+      if ($filename != '.' && $filename != '..') {
         // set complete url
         //
         if ($url_path == '') {
@@ -136,7 +145,8 @@ function directory_data($path, $url_path) {
 
         if (is_readable("$path/$filename") && // FS READ
             is_file("$path/$filename")     && // FS READ
-            eregi($valid_extensions, $filename)) { 
+            //eregi($valid_extensions, $filename)) {
+            preg_match("/{$valid_extensions}/", $filename)) {
           $files_raw[] = array('name' => $filename,
                                'url'  => $url);
         } else if (is_readable("$path/$filename") && 
@@ -220,10 +230,10 @@ function path_list($path) {
   if ($path != '') {
     $image_subdir_parts = explode('/', $path);
   }
-  
+
   $path_list[] = array('url'  => $CFG_url_album,
                        'name' => $CFG_album_name);
-  
+
   for ($i = 0; $i < count($image_subdir_parts); $i++) {
     list($k, $v) = each($image_subdir_parts);
     $path_list[] = array('url'  => build_url('list', '0', implode('/', array_slice($image_subdir_parts, 0, $i + 1))),
@@ -244,7 +254,7 @@ function debug($type, $message = '') {
     $message = $type;
     $type = 'debug';
   } // if
-  
+
   if (is_array($message) || is_object($message)) {
     ob_start();
     var_dump($message);

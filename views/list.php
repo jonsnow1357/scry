@@ -44,10 +44,10 @@ if ($offset < $total_images - $CFG_images_per_page && $CFG_images_per_page != 0)
 if ($CFG_images_per_page) {
   $T['files'] = array_slice($data['files'], $offset, $CFG_images_per_page);
 } else {
-  $T['files'] =& $data['files']; 
+  $T['files'] = $data['files']; 
 } // if
-$T['dirs']            =& $data['directories']; 
-$T['path']            =& path_list($IMAGE_DIR); 
+$T['dirs']            = $data['directories']; 
+$T['path']            = path_list($IMAGE_DIR); 
 $T['offset']          = $offset;
 $T['offset_prev']     = $offset_prev;
 $T['offset_next']     = $offset_next;

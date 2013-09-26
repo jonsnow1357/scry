@@ -40,16 +40,16 @@ if ($CFG_use_exifer) {
 //////////////////////////////////////////////////////////////////////////////
 // assign, display templates
 //
-$T['current']                =& $data['files'][$INDEX]; 
-$T['current']['image_size']  =& $image_size;
-$T['current']['view_size']   =  calculate_resize($image_size[0], $image_size[1], $CFG_image_width, $CFG_image_height);
-$T['current']['file_size']   =  round($file_size / 1024, 0) . ' KB';
+$T['current']                = $data['files'][$INDEX]; 
+$T['current']['image_size']  = $image_size;
+$T['current']['view_size']   = calculate_resize($image_size[0], $image_size[1], $CFG_image_width, $CFG_image_height);
+$T['current']['file_size']   = round($file_size / 1024, 0) . ' KB';
 if ($CFG_use_exifer) {
-  $T['current']['exif_data'] =& $exif_data; 
+  $T['current']['exif_data'] = $exif_data; 
 }
 
-$T['next']    =& $data['files'][($INDEX + 1)]; 
-$T['prev']    =& $data['files'][($INDEX - 1)]; 
+$T['next']    = $data['files'][($INDEX + 1)]; 
+$T['prev']    = $data['files'][($INDEX - 1)]; 
 $T['path']    =  path_list($IMAGE_DIR); 
 debug('T', $T);
 

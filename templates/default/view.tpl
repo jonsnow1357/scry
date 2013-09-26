@@ -22,7 +22,7 @@
             <br />
             <?php print $T['current']['name']; ?>
             <br />
-            <a href="<?php print($T['current']['raw_url']); ?>"><?php print($T['current']['image_size'][0] . 'x' . $T['current']['image_size'][1] . ', ' . $T['current']['file_size']); ?></a> 
+            <a href="<?php print($T['current']['raw_url']); ?>"><?php print($T['current']['image_size'][0] . 'x' . $T['current']['image_size'][1] . ', ' . $T['current']['file_size']); ?></a>
             </div>
           </td>
         </tr>
@@ -39,7 +39,7 @@ if (is_array($T['prev'])) {
 ?>
             </div>
           </td>
-          <td width="40%" align="middle" valign="bottom">
+          <td width="40%" align="center" valign="bottom">
             <p>
 <?php
 if (is_array($T['current']['exif_data'])) {

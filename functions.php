@@ -149,7 +149,7 @@ function directory_data($path, $url_path) {
             preg_match("/{$valid_extensions}/", $filename)) {
           $files_raw[] = array('name' => $filename,
                                'url'  => $url);
-        } else if (is_readable("$path/$filename") && 
+        } else if (is_readable("$path/$filename") &&
                    is_dir("$path/$filename") &&
                    substr($filename, 0, 1) != '_') { // FS READ
           $dirs_raw[]  = array('name' => $filename,
@@ -273,8 +273,8 @@ function build_url($view, $index, $path) {
   if ($CFG_variable_mode == 'path') {
     return("$CFG_url_album/$view/$index/" . str_replace('%2F', '/', urlencode($path)));
   } else {
-    return("$CFG_url_album?v=$view&i=$index&p=" . str_replace('%2F', '/', urlencode($path)));
-  } 
+    return("$CFG_url_album?v=$view&amp;i=$index&amp;p=" . str_replace('%2F', '/', urlencode($path)));
+  }
 } // function build_url
 
 // function resize($x, $y)
@@ -290,16 +290,16 @@ function calculate_resize($x1, $y1, $x2, $y2) {
     (int)$resize_x = $x2;
     (int)$resize_y = round(($y1 * $x2)/$x1);
     break;
-    
+
   case 'Y':
     (int)$resize_x = round(($x1 * $y2)/$y1);
-    (int)$resize_y = $y2;  
+    (int)$resize_y = $y2;
     break;
-    
+
   default:
     (int)$resize_x = ($x1 <= $y1) ? round(($x1 * $y2)/$y1) : $x2;
     (int)$resize_y = ($x1 >  $y1) ? round(($y1 * $x2)/$x1) : $y2;
-    break;    
+    break;
   }
   return array($resize_x, $resize_y);
 } // calculate_resize

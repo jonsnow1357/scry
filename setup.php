@@ -54,7 +54,7 @@ $CFG_images_per_page = 0;
 
 // valid file extensions - case insensitive (jpg will also match JPG)
 //
-$CFG_image_valid = array("jpg", "jpeg");
+$CFG_image_valid = array("jpg", "jpeg", "png", "gif");
 
 // are the cache and images directories outside the webserver's docroot?
 //

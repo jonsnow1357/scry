@@ -36,7 +36,7 @@ $image_props = getimagesize($PATH); // FS READ
 
 if (!is_array($image_props)) {
   die('bad props');
-} 
+}
 
 // 0 INDEX or original size image: redirect or load image
 //
@@ -83,8 +83,13 @@ if (!$CFG_debug_image) {
     } else {
       $new_image = ImageCreateTrueColor($resize_x, $resize_y);
     }
-    
-    $src_image = ImageCreateFromJPEG($PATH); // FS READ
+
+    switch ($image_props[2]) {
+      case 1: $src_image = ImageCreateFromGIF($PATH); break;// FS READ
+      case 2: $src_image = ImageCreateFromJPEG($PATH); break;// FS READ
+      case 3: $src_image = ImageCreateFromPNG($PATH); break;// FS READ
+      default: die("Incorrect image type ...");
+    }
 
     // choose function based on fast mode and availability
     // note: function_exists is a poor test for GD functions
@@ -98,7 +103,13 @@ if (!$CFG_debug_image) {
                        $resize_y,
                        $image_props[0],
                        $image_props[1]);
-    } else {     
+    } else {
+      if (($image_props[2] == 1) OR ($image_props[2] == 3)) {
+        ImageAlphaBlending($new_image, false);
+        ImageSaveAlpha($new_image, true);
+        $transparent = ImageColorAllocateAlpha($new_image, 255, 255, 255, 127);
+        ImageFilledRectangle($new_image, 0, 0, $resize_x, $resize_y, $transparent);
+      }
       ImageCopyResampled($new_image,
                          $src_image,
                          0, 0, 0, 0,
@@ -109,12 +120,12 @@ if (!$CFG_debug_image) {
     }
 
     // verify cache enabled, path writable, and target size OK to be cached
-    // 
-    if ($CFG_cache_enable && 
+    //
+    if ($CFG_cache_enable &&
         is_writable($CFG_path_cache) && // FS READ
-        (($x == $CFG_thumb_width && 
+        (($x == $CFG_thumb_width &&
           $y == $CFG_thumb_height) ||
-         ($x == $CFG_image_width && 
+         ($x == $CFG_image_width &&
           $y == $CFG_image_height))) {
       ImageJPEG($new_image, $cache['path'], $CFG_jpeg_compression); // FS WRITE
       header('Location: '. $cache['cache_url']);

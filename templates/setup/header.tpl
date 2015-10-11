@@ -8,7 +8,7 @@
 //
 // $Id: header.tpl,v 1.1 2004/10/01 06:48:55 jbyers Exp $
 //
-// Note: setup is a specialized template for setup only.  See the 
+// Note: setup is a specialized template for setup only.  See the
 //       default template for a working example.
 //
 
@@ -48,5 +48,3 @@ if ($VIEW != 'list') {
     <td colspan="2">
 
 <div class="body">
-
-

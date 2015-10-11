@@ -26,7 +26,7 @@
 //   $PATH  validated below, before FS calls
 //
 
-define('SCRY_VERSION', 1.2);
+define('SCRY_VERSION', 1.3);
 
 error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 1);

@@ -8,7 +8,7 @@
 //
 // $Id: list.tpl,v 1.1 2004/10/01 06:48:55 jbyers Exp $
 //
-// Note: setup is a specialized template for setup only.  See the 
+// Note: setup is a specialized template for setup only.  See the
 //       default template for a working example.
 //
 ?>
@@ -17,7 +17,7 @@
 
 <p>If you're reading this, you're looking at a fresh installation of
 <a href="http://scry.org">Scry</a>.  On this page, we'll verify that
-everything is set up correctly before you turn Scry on.  Follow any 
+everything is set up correctly before you turn Scry on.  Follow any
 instructions in red and reload the page until everything is green.<p>
 
 <p id="title">1. PHP and GD</p>
@@ -29,8 +29,8 @@ instructions in red and reload the page until everything is green.<p>
 <?php
   $version_parts = explode('.', PHP_VERSION);
 
-if ($version_parts[0] < 4 || 
-    ($version_parts[0] == 4 && 
+if ($version_parts[0] < 4 ||
+    ($version_parts[0] == 4 &&
      $version_parts[1] == 0)) {
   print('<big><strong><font color="#990000">PHP version <?php print PHP_VERSION; ?> installed</font></strong></big><br />Please install PHP version 4.0.6 or newer to use Scry.  PHP is available at <a href="http://php.net">http://php.net</a>.');
 } else {
@@ -127,7 +127,7 @@ If you're unable to get Scry to work, please visit the troubleshooting section o
 $gd_version = 'unknown';
 if (function_exists('gd_info')) {
   $gd_info    = gd_info();
-  $gd_version = $gd_info['GD Version']; 
+  $gd_version = $gd_info['GD Version'];
 } // if
 ?>
 
@@ -140,6 +140,3 @@ script_file[<?php print $_SERVER['SCRIPT_FILENAME'];?>]
 script_uri[<?php print $_SERVER['SCRIPT_URI'];?>]
 
 </pre></small>
-
-
-

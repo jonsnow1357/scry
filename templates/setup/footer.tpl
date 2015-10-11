@@ -22,7 +22,9 @@
     <td>
 
 <div class="footer_text">
-  Copyright 2004 James Byers.  Scry is hosted on <a href="http://sourceforge.net/projects/scry/">SourceForge.net</a>.
+  Copyright 2004 James Byers.  Scry is hosted on <a href="https://github.com/jbyers/scry">github.com</a>.
+  <br/>
+  Copyright 2015 jonsnow1357_at_yahoo.com.  Scry is hosted on <a href="https://github.com/jonsnow1357/scry">github.com</a>.
 </div>
 
     </td>

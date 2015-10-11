@@ -13,18 +13,18 @@
 //
 
 print('<p>Path:<br>');
-while(list($k, $p) = @each($T['path'])) { 
+while(list($k, $p) = @each($T['path'])) {
   print(' <a href="' . $p['url'] . '">' . $p['name'] . '</a> / ');
 }
 
 print('<p>Directories:<br><table>');
-while(list($k, $d) = @each($T['dirs'])) { 
+while(list($k, $d) = @each($T['dirs'])) {
   print('<tr><td>' . $d['name'] . '</td><td><a href="' . $d['list_url'] . '">' . $d['list_url'] . '</a></td></tr>');
 }
 print('</table>');
 
 print('<p>Files:<br><table>');
-while(list($k, $f) = @each($T['files'])) { 
+while(list($k, $f) = @each($T['files'])) {
   print('<tr><td>' . $f['name'] . '</td><td><a href="' . $f['view_url'] . '">' . $f['view_url'] . '</a><br>' . $f['thumb_url'] . '</td></tr>');
 }
 print('</table>');

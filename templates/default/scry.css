@@ -56,5 +56,6 @@ body {
 }
 
 .images img {
-        border: 2px solid #000000;
+        /*border: 2px solid #000000;*/
+        padding: 4px 2px 4px 2px;
 }

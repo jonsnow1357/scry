@@ -6,8 +6,6 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: index.php,v 1.15 2004/11/06 07:14:33 jbyers Exp $
-//
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
 // !! NOTE - this file does not need to be edited; see setup.php !!
@@ -101,7 +99,7 @@ if ($CFG_variable_mode == 'path') {
     $IMAGE_DIR = implode('/', array_slice($url_parts, $url_offset + 2));
   } else {
     $IMAGE_DIR        = implode('/', array_slice($url_parts, $url_offset + 2, -1));
-    list($IMAGE_FILE) = array_slice($url_parts, -1);    
+    list($IMAGE_FILE) = array_slice($url_parts, -1);
   } // if
 } else {
   if ($VIEW == 'list') {

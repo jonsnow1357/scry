@@ -6,8 +6,6 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: list.tpl,v 1.1 2004/10/01 06:48:55 jbyers Exp $
-//
 // Note: setup is a specialized template for setup only.  See the
 //       default template for a working example.
 //

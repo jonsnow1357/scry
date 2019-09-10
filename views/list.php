@@ -6,15 +6,13 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: list.php,v 1.6 2004/09/30 23:19:12 jbyers Exp $
-//
 
 //////////////////////////////////////////////////////////////////////////////
 // Security
 //
 // include calls are based on static variables.
 //
-// No other filesystem calls take place in this view.  See 
+// No other filesystem calls take place in this view.  See
 // functions.php/directory_data() for directory listing validation.
 //
 
@@ -44,10 +42,10 @@ if ($offset < $total_images - $CFG_images_per_page && $CFG_images_per_page != 0)
 if ($CFG_images_per_page) {
   $T['files'] = array_slice($data['files'], $offset, $CFG_images_per_page);
 } else {
-  $T['files'] = $data['files']; 
+  $T['files'] = $data['files'];
 } // if
-$T['dirs']            = $data['directories']; 
-$T['path']            = path_list($IMAGE_DIR); 
+$T['dirs']            = $data['directories'];
+$T['path']            = path_list($IMAGE_DIR);
 $T['offset']          = $offset;
 $T['offset_prev']     = $offset_prev;
 $T['offset_next']     = $offset_next;

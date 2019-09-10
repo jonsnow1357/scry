@@ -6,8 +6,6 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: view.tpl,v 1.8 2004/10/06 20:00:45 jbyers Exp $
-//
 ?>
 
 <table cellpadding="5" cellspacing="0" width="85%" border="0" align="center">
@@ -30,6 +28,7 @@
         <tr>
           <td width="30%" align="left" valign="bottom">
             <div class="images">
+
 <?php
 if (is_array($T['prev'])) {
   print('<a style="text-decoration: none;" href="' . $T['prev']['view_url'] . '"><img src="' . $T['prev']['thumb_url'] . '" alt="previous" /><br />&lt; previous</a>');
@@ -37,10 +36,12 @@ if (is_array($T['prev'])) {
   print("&nbsp;");
 }
 ?>
+
             </div>
           </td>
           <td width="40%" align="center" valign="bottom">
             <p>
+
 <?php
 if (is_array($T['current']['exif_data'])) {
   // there are hundreds of exif tags; this is just a sample based images from a Canon S30
@@ -62,6 +63,7 @@ if (is_array($T['current']['exif_data'])) {
           </td>
           <td width="30%" align="right" valign="bottom">
             <div class="images">
+
 <?php
 if (is_array($T['next'])) {
   print('<a style="text-decoration: none;" href="' . $T['next']['view_url'] . '"><img src="' . $T['next']['thumb_url'] . '" alt="next" /><br />next &gt;</a>');
@@ -69,6 +71,7 @@ if (is_array($T['next'])) {
   print("&nbsp;");
 }
 ?>
+
             </div>
           </td>
         </tr>

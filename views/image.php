@@ -6,8 +6,6 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: image.php,v 1.16 2004/11/04 21:46:56 jbyers Exp $
-//
 
 //////////////////////////////////////////////////////////////////////////////
 // Security

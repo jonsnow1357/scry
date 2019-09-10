@@ -6,8 +6,6 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: functions.php,v 1.18 2004/11/29 00:42:56 jbyers Exp $
-//
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!
 // !! NOTE - this file does not need to be edited; see setup.php !!

@@ -6,11 +6,10 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: list.tpl,v 1.11 2004/09/30 23:28:58 jbyers Exp $
-//
 ?>
 
 <table cellpadding="5" cellspacing="0" width="85%" border="0" align="center">
+
 <?php
 if (@count($T['dirs'])) {
 ?>
@@ -48,12 +47,10 @@ while(list($k, $f) = @each($T['files'])) {
     <td align="left"><?php if ($T['offset_prev'] != -1) print('<a href="' . $T['offset_prev_url'] . '">&lt; previous page</a>'); ?></td>
     <td align="right"><?php if ($T['offset_next'] != -1) print('<a href="' . $T['offset_next_url'] . '">next page &gt;</a>'); ?></td>
   </tr>
+
 <?php
-
 } // if files
-
 if (!@count($T['dirs']) && !@count($T['files'])) {
-
 ?>
 
   <tr>

@@ -5,8 +5,6 @@
 //
 // Scry is distributed under a BSD License.  See LICENSE for details.
 //
-// $Id: README,v 1.8 2004/10/02 02:09:10 jbyers Exp $
-//
 
 What's the point of another photo album?
 ----------------------------------------
@@ -38,7 +36,7 @@ What's Required:
 - PHP 4.1.X or newer
 - GD 2.0 or newer built as a PHP module with JPEG support
     OR
-  GD 1.8 or newer built as a PHP module with JPEG support 
+  GD 1.8 or newer built as a PHP module with JPEG support
   (see note #4 below)
 
 How to Install Scry:
@@ -55,7 +53,7 @@ How to Install Scry:
    mv scry-1.1 scry
    cd scry
 
-3. Create a directory for cached image files.  Set the permissions of this 
+3. Create a directory for cached image files.  Set the permissions of this
    directory so the webserver can create files therein.
 
    mkdir cache
@@ -110,12 +108,12 @@ Known Limitations:
 ------------------
 
 - Scry has only been tested on Linux and UNIX systems.  With
-  correctly formatted path names, Scry should work without modification 
+  correctly formatted path names, Scry should work without modification
   on Windows or MacOS X.
-- Scry supports only JPEG files.  Support for other formats may be 
-  included in a later release.  
-- Scry will not run on versions of PHP earlier than 4.1. This is very 
-  unlikely to change in the future; if you're stuck with an old 
+- Scry supports only JPEG files.  Support for other formats may be
+  included in a later release.
+- Scry will not run on versions of PHP earlier than 4.1. This is very
+  unlikely to change in the future; if you're stuck with an old
   version of PHP, it's time for your host to upgrade.
 - On some systems, image quality may not be acceptible with GD versions
   before 2.0.

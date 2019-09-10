@@ -33,7 +33,6 @@
 function path_security_check($victim, $test) {
 
   if (!realpath($victim) ||
-      //eregi("^" . rtrim($test, '/') . ".*", rtrim(realpath($victim), '/'))) {
       preg_match("/^" . rtrim('/', $test) . ".*/", rtrim('/', realpath($victim)))) {
     return true;
   }
@@ -121,7 +120,6 @@ function directory_data($path, $url_path) {
     $CFG_image_valid_i[] = strtoupper($e);
   }
   // put CFG_image_valid array into eregi form
-  //
   $valid_extensions = '(.' . implode('|.', $CFG_image_valid_i) . ')$';
 
   path_security_check($path, $CFG_path_images);
@@ -145,7 +143,6 @@ function directory_data($path, $url_path) {
 
         if (is_readable("$path/$filename") && // FS READ
             is_file("$path/$filename")     && // FS READ
-            //eregi($valid_extensions, $filename)) {
             preg_match("/{$valid_extensions}/", $filename)) {
           $files_raw[] = array('name' => $filename,
                                'url'  => $url);
@@ -174,7 +171,7 @@ function directory_data($path, $url_path) {
   $dirs  = array();
   $file_count = 0;
   $dir_count  = 0;
-  while (list($k, $v) = each($files_raw)) {
+  foreach ($files_raw as $k => $v) {
     // set thumbnail cached vs. not
     //
     $thumb = cache_test($v['url'], $CFG_thumb_width, $CFG_thumb_height); // FS FUNCTION
@@ -204,7 +201,7 @@ function directory_data($path, $url_path) {
     $file_count++;
   }
 
-  while (list($k, $v) = each($dirs_raw)) {
+  foreach ($dirs_raw as $k => $v) {
     $dirs[] = array('name'     => $v['name'],
                     'index'    => $dir_count,
                     'list_url' => build_url('list', '0', $v['url']));
@@ -235,7 +232,8 @@ function path_list($path) {
                        'name' => $CFG_album_name);
 
   for ($i = 0; $i < count($image_subdir_parts); $i++) {
-    list($k, $v) = each($image_subdir_parts);
+    $k = key($image_subdir_parts);
+    $v = current($image_subdir_parts);
     $path_list[] = array('url'  => build_url('list', '0', implode('/', array_slice($image_subdir_parts, 0, $i + 1))),
                          'name' => $image_subdir_parts[$i]);
   } // for

@@ -1,10 +1,6 @@
 <?php
 //
-// Scry - Simple PHP Photo Album
-// Copyright 2004 James Byers <jbyers@users.sf.net>
-// http://scry.org
-//
-// Scry is distributed under a BSD License.  See LICENSE for details.
+// SPDX-License-Identifier: BSD-3-Clause
 //
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // !!                                                            !!

@@ -6,7 +6,6 @@
   <tr>
     <td align="left">
       <?php
-      //$url = ereg_replace("scry/", "", $CFG_url_scry);
       $url = preg_replace("/scry\//", "", $CFG_url_scry);
       echo "back to <a href=\"{$url}\">home page</a>";
       ?>

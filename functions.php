@@ -62,7 +62,6 @@ function cache_test($url, $x, $y) {
   // pure urlencoding would require double-urlencoding image URLs -- confusing
   // instead replace %2f (/) with ! and % with $ (!, $ are URL safe) for readability and consistency between two versions
   //
-  //ereg("(.*)(\.[A-Za-z0-9]+)$", $url, $matches);
   preg_match("/(.*)(\.[A-Za-z0-9]+)$/", $url, $matches);
   $result              = array();
   $result['is_cached'] = false;
@@ -107,13 +106,13 @@ function cache_test($url, $x, $y) {
 function directory_data($path, $url_path) {
   global $CFG_image_valid, $CFG_url_album, $CFG_thumb_width, $CFG_thumb_height, $CFG_image_width, $CFG_image_height, $CFG_path_images, $CFG_cache_outside_docroot;
 
-  //compensate for switching away from eregi
+  //compensate for switching away from eregi()
   $CFG_image_valid_i = array();
   foreach($CFG_image_valid as $e) {
     $CFG_image_valid_i[] = $e;
     $CFG_image_valid_i[] = strtoupper($e);
   }
-  // put CFG_image_valid array into eregi form
+  // put CFG_image_valid array into eregi() form
   $valid_extensions = '(.' . implode('|.', $CFG_image_valid_i) . ')$';
 
   path_security_check($path, $CFG_path_images);

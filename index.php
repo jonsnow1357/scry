@@ -78,7 +78,6 @@ if ($CFG_variable_mode == 'path') {
 
 // redirect bad action to root list
 //
-//if (!ereg('^(image|list|view)$', $VIEW)) {
 if (!preg_match('/^(image|list|view)$/', $VIEW)) {
    if ($CFG_variable_mode == 'path') {
      header("Location: $CFG_url_album/list/");

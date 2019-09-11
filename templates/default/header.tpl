@@ -15,8 +15,8 @@
 <table cellpadding="5" cellspacing="0" width="85%" border="0" align="center">
   <tr>
     <td align="left">
-<?php
 
+<?php
 while(list($k, $p) = @each($T['path'])) {
   print(" <a href=\"$p[url]\">$p[name]</a> / ");
 }
@@ -24,8 +24,8 @@ while(list($k, $p) = @each($T['path'])) {
 if (@$T['current']['name'] != '') {
   print $T['current']['name'];
 }
-
 ?>
+
     </td>
   </tr>
 </table>

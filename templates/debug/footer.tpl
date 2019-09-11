@@ -9,11 +9,10 @@
 
 <p>
 Debug variables:
-
 <pre>
+
 <?php
-
 print(htmlentities(implode("\n", $DEBUG_MESSAGES)));
-
 ?>
+
 </pre>

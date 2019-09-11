@@ -16,7 +16,7 @@
     <td>
 
 <div class="footer_text">
-  Powered by <a href="https://github.com/jonsnow1357/scry">Scry</a>
+  Powered by <a href="<?php print($URL_PROJECT); ?>">Scry</a>
 </div>
 
     </td>

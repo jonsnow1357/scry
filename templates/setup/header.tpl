@@ -33,7 +33,7 @@ if ($VIEW != 'list') {
     </td>
     <td align="right">
 
-<img src="http://scry.sourceforge.net/images/photos.png">
+<img src="<?php print $T['template_url']; ?>/icon.png" width="10%" height="10%">
 
     </td>
   </tr>

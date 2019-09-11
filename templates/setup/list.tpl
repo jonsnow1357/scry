@@ -10,7 +10,7 @@
 <p id="title">Setup</p>
 
 <p>If you're reading this, you're looking at a fresh installation of
-<a href="http://scry.org">Scry</a>.  On this page, we'll verify that
+<a href="<?php print($URL_PROJECT); ?>">Scry</a>.  On this page, we'll verify that
 everything is set up correctly before you turn Scry on.  Follow any
 instructions in red and reload the page until everything is green.<p>
 
@@ -109,11 +109,13 @@ if (!is_writable($CFG_path_cache)) {
 
 <p id="title">4. Almost Done</p>
 
-There's one last step to switch Scry on.  In setup.php, change <i><b>$CFG_template</b></i> to <i><b>'default'</b></i>.  This will switch on your photo album and you will no longer see this setup screen.  Any photos and folders you then place in your images Enjoy!
+There's one last step to switch Scry on.  In setup.php, change <i><b>$CFG_template</b></i> to <i><b>'default'</b></i>.
+This will switch on your photo album and you will no longer see this setup screen.  Any photos and folders you then place in your images Enjoy!
 
 <p id="title">Troubleshooting</p>
 
-If you're unable to get Scry to work, please visit the troubleshooting section of <a href="http://scry.org">http://scry.org</a>.  To help us understand your server environment better, please include the following text in any correspondence (email, mailing list message, bug report).  It will help us tremendously.
+If you're unable to get Scry to work, please visit the project page at <a href="<?php print($URL_PROJECT); ?>"><?php print($URL_PROJECT); ?></a>.
+To help us understand your server environment better, please include the following text in any correspondence (email, mailing list message, bug report).  It will help us tremendously.
 
 <?php
 // GD

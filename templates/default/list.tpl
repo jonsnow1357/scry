@@ -55,6 +55,8 @@ if (!@count($T['dirs']) && !@count($T['files'])) {
     </td>
   </tr>
 
-<?php } // if no dirs or files ?>
+<?php
+ } // if no dirs or files
+ ?>
 
 </table>

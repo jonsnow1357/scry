@@ -8,7 +8,6 @@
 ?>
 
 <p>
-<a href="http://scry.org">Scry</a> Debugging Theme<br>
+<strong>Debugging Theme</strong><br>
 Scry: Simple PHP Photo Album
-
 <p>

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: BSD-3-Clause
 
 Structure
-------------------------------------------------------------------------------
+---------
 
   index.php      controller
   functions.php  common functions
@@ -16,7 +16,7 @@ Structure
 
 
 Control Flow
-------------------------------------------------------------------------------
+------------
 
 Scry has three views:
 
@@ -33,7 +33,7 @@ delegates control to the view.
 
 
 Security
-------------------------------------------------------------------------------
+--------
 
 All filesystem calls (reads, writes, and Scry functions) are marked
 with "FS [TYPE]".  Each file also contains a security header comment
@@ -51,7 +51,7 @@ Scry does not use any PHP network functions.
 
 
 Variables
-------------------------------------------------------------------------------
+---------
 
 Configuration variables are all contained in setup.php and prefixed
 with 'CFG'.
@@ -61,7 +61,7 @@ $_SERVER and $_GET superglobals.
 
 
 URLs
-------------------------------------------------------------------------------
+----
 
 Scry can operate in two variable modes, "get" and "path", as set by
 $CFG_variable_mode.
@@ -90,18 +90,18 @@ Because of this restriction, Scry defaults to get mode.
 
 Examples:
 
-  list   http://scry.org/photos/index.php?a=list&i=2&p=/path/to/images/
-         http://scry.org/photos/index.php/list/2/path/to/images/
+  list   http://[server]/photos/index.php?a=list&i=2&p=/path/to/images/
+         http://[server]/photos/index.php/list/2/path/to/images/
 
-  view   http://scry.org/photos/index.php?a=view&i=12&p=/path/to/images/00024601.jpg
-         http://scry.org/photos/index.php/view/12/path/to/images/00024601.jpg
+  view   http://[server]/photos/index.php?a=view&i=12&p=/path/to/images/00024601.jpg
+         http://[server]/photos/index.php/view/12/path/to/images/00024601.jpg
 
-  image  http://scry.org/photos/index.php?a=image&i=800x600&p=path/to/images/00024601.jpg
-         http://scry.org/photos/index.php/image/800x600/path/to/images/00024601.jpg
+  image  http://[server]/photos/index.php?a=image&i=800x600&p=path/to/images/00024601.jpg
+         http://[server]/photos/index.php/image/800x600/path/to/images/00024601.jpg
 
 
 Global Variables
------------------------------------------------------------------------------
+----------------
 
   name             description
   ----             -----------
@@ -115,7 +115,7 @@ Global Variables
 
 
 Caching
------------------------------------------------------------------------------
+-------
 
 If $CFG_cache_enable is true, Scry will cache resized images.
 
@@ -129,7 +129,7 @@ as set by $CFG_thumb_(width|height) and $CFG_view_(width|height).
 
 
 Images Outside Docroot
-------------------------------------------------------------------------------
+----------------------
 
 By default, Scry sends Location: headers to the browser to load cached
 images directly from the cache directory within the webserver's
@@ -142,7 +142,7 @@ docroot.
 
 
 Resizing
-------------------------------------------------------------------------------
+--------
 
 Scry attempts to intelligently resize images for thumbnails and
 viewing, based on the bounds set by $CFG_thumb_(width|height) and
@@ -151,7 +151,7 @@ aspect ratio but will not exceed the bounds above.
 
 
 Templates
-------------------------------------------------------------------------------
+---------
 
 Templates are simple XHTML files with <?php ?> looping, control, and
 variable blocks.  'default' is a good example of the variables Scry
@@ -160,7 +160,7 @@ $T global.
 
 
 Debugging
-------------------------------------------------------------------------------
+---------
 
 There are two methods for debugging Scry.  The first is to use the
 'debug' template by changing $CFG_path_template and $CFG_url_template

@@ -3,29 +3,29 @@
 What's the point of another photo album?
 ----------------------------------------
 
-For my needs, photo gallery programs always try to do too much.  They
+For my needs, photo gallery programs always try to do too much. They
 add all kinds of extraneous metadata to your pictures, force you to
-use a web interface to upload and manage photos, glom data (and
+use a web interface to upload and manage photos, put data (and
 sometimes photos!) in a database, and generally complicate your life.
 Photos are quite happy in a normal filesystem, with a simple XHTML
-interface, image resizing, and strong template support for inclusion
+interface, image resizing, and template support for inclusion
 in an existing site.
 
 Scry is less than 700 lines of code, including configuration and
-copious comments, contained in 6 source files.  It doesn't use a
-database.  It has no administrative front end.  Change the filesystem
+copious comments, contained in 6 source files. It doesn't use a
+database. It has no administrative front end. Change the filesystem
 and the image views will change without interaction on your part.
-Image resizing and caching is done on the fly.  You can easily embed
-Scry into an existing site.  Scry is stable, secure,
+Image resizing and caching is done on the fly. You can easily embed
+Scry into an existing site. Scry is stable, secure,
 production-tested, and won't change out from under you in two
 versions.
 
 If you're looking for more advanced photo album features, I recommend
 Bharat Mediratta's excellent and comprehensive Gallery photo album
-system (http://gallery.sf.net).
+system (http://galleryproject.org/).
 
-What's Required:
-----------------
+What's Required
+---------------
 
 - PHP 4.1.X or newer
 - GD 2.0 or newer built as a PHP module with JPEG support
@@ -33,78 +33,71 @@ What's Required:
   GD 1.8 or newer built as a PHP module with JPEG support
   (see note #4 below)
 
-How to Install Scry:
---------------------
+How to Install Scry
+-------------------
 
-1. Untar scry-1.1.tar.gz into your webserver's document root:
+1. Clone the repository somewhere into your webserver's document root:
 
-   cd /path/to/webserver/document/root
-   tar zxvf /path/to/scry/scry-1.1.tar.gz
+  cd /path/to/webserver/document/root
+  git clone https://github.com/jonsnow1357/scry.git
 
-2. Move the resulting "scry-1.1" directory to "scry" (for purposes of
-   these instructions)
+2. Create a directory for cached image files. Set the permissions of this
+  directory so the webserver can create files therein.
 
-   mv scry-1.1 scry
-   cd scry
+  mkdir cache
+  chmod 777 cache
 
-3. Create a directory for cached image files.  Set the permissions of this
-   directory so the webserver can create files therein.
+3. Edit setup.php and change the first four variables:
 
-   mkdir cache
-   chmod 777 cache
+  $CFG_url_scry     the URL to your scry directory from step #2
+  $CFG_url_images   the URL to your photos directory
 
-4. Edit setup.php and change the first four variables:
+  $CFG_path_scry    the filesystem path to your scry directory from step #2
+  $CFG_path_images  the filesystem path to your photos directory
 
-   $CFG_url_scry     the URL to your scry directory from step #2
-   $CFG_url_images   the URL to your photos directory
+4. Leave $CFG_template set to 'setup' and point your browser to the
+  Scry URL you set in $CFG_url_scry. You will see a set of tests to
+  make sure Scry is set up correctly. Correct any warnings and reload
+  the page until it passes all tests.
 
-   $CFG_path_scry    the filesystem path to your scry directory from step #2
-   $CFG_path_images  the filesystem path to your photos directory
+6. Edit setup.php again and set $CFG_template to 'default'.
+  Reload the Scry URL; if all is well, you'll see directories and photos.
 
-5. Leave $CFG_template set to 'setup' and point your browser to the
-   Scry URL you set in $CFG_url_scry.  You will see a set of tests to
-   make sure Scry is set up correctly.  Correct any warnings and reload
-   the page as instructed.
-
-6. Once all the tests are green, edit scry/setup.php again and set
-   $CFG_template to 'default'.  Reload the Scry URL; if all is well,
-   you'll see directories and photos.
-
-Notes:
-------
+Notes
+-----
 
 1. Scry can publish photos within your webserver's document root or
-outside it on the filesystem.  If you set your $CFG_path_images or
+outside it on the filesystem. If you set your $CFG_path_images or
 $CFG_path_cache outside your document root, be sure to also set
 $CFG_cache_outside_docroot and $CFG_images_outside_docroot to true.
 
-2. It's easy to create new templates.  To create a new template, copy
+2. It's easy to create new templates. To create a new template, copy
 the contents of the 'default' subdirectory to a new subdirectory.
 Edit the new files as you please; they're XHTML with <?php ?> blocks
-looping over and printing $T variables.  Change $CFG_template to your
+looping over and printing $T variables. Change $CFG_template to your
 template directory name to swich.
 
 3. Scry 1.1 supports URL variables using both GET and path parsing
-methods.  Both will work exactly the same way, but some people think
-path parsing is more aesthetically pleasing.  Path mode requires
+methods. Both will work exactly the same way, but some people think
+path parsing is more aesthetically pleasing. Path mode requires
 Apache 1.3 or Apache 2.0 with "AcceptPathInfo On" in httpd.conf or an
-.htaccess file.  A quick way to find out if your webserver supports
+.htaccess file. A quick way to find out if your webserver supports
 path mode is to switch $CFG_variable_mode in setup.php to 'path'; if
-your album still works, you're good.  DESIGN describes these modes in
+your album still works, you're good. DESIGN describes these modes in
 more detail.
 
 4. If setup passes all tests but no images appear, try setting
-$CFG_use_old_gd to true.  If images then appear, your version of GD
-does not support high quality image resizing.  Upgrading to GD 2.0 or
+$CFG_use_old_gd to true. If images then appear, your version of GD
+does not support high quality image resizing. Upgrading to GD 2.0 or
 newer will correct this problem.
 
-Known Limitations:
-------------------
+Known Limitations
+-----------------
 
-- Scry has only been tested on Linux and UNIX systems.  With
+- Scry has only been tested on Linux and UNIX systems. With
   correctly formatted path names, Scry should work without modification
   on Windows or MacOS X.
-- Scry supports only JPEG files.  Support for other formats may be
+- Scry supports only some files. Support for less common formats may be
   included in a later release.
 - Scry will not run on versions of PHP earlier than 4.1. This is very
   unlikely to change in the future; if you're stuck with an old
@@ -112,18 +105,8 @@ Known Limitations:
 - On some systems, image quality may not be acceptible with GD versions
   before 2.0.
 
-Troubleshooting and Support:
-----------------------------
+Troubleshooting and Support
+---------------------------
 
-See http://scry.org for troubleshooting advice and support.
-
-Bugs, Features:
----------------
-
-Please submit bugs to the bug tracker:
-
-  http://sourceforge.net/tracker/?group_id=5015&atid=105015
-
-Please submit feature requests to the RFE tracker:
-
-  http://sourceforge.net/tracker/?group_id=5015&atid=355015
+Mostly try to figure it out yourself, but if you really cannot make it work
+you can open an issue on github. Support is offered on a best effort basis :)

@@ -29,18 +29,15 @@ require_once('setup.php');
 require_once('functions.php');
 
 // remove slashes from $_GET
-//
-if (get_magic_quotes_gpc()) {
-  function stripslashes_deep($value)
-    {
-      $value = is_array($value) ?
-        array_map('stripslashes_deep', $value) :
-        stripslashes($value);
+function stripslashes_deep($value)
+  {
+    $value = is_array($value) ?
+      array_map('stripslashes_deep', $value) :
+      stripslashes($value);
 
-      return $value;
-    }
-  $_GET = array_map('stripslashes_deep', $_GET);
-} // if magic_quotes
+    return $value;
+  }
+$_GET = array_map('stripslashes_deep', $_GET);
 
 //////////////////////////////////////////////////////////////////////////////
 // global variable, template initialization, headers

@@ -10,7 +10,8 @@ if (@count($T['dirs'])) {
     <td width="100%" id="t_slim" align="center" colspan="2">
 
 <?php
-while(list($k, $d) = @each($T['dirs'])) {
+//while(list($k, $d) = @each($T['dirs'])) {
+foreach ($T['dirs'] as $k => $d) {
   print('<div class="folder"><a href="' . $d['list_url'] . '"><img src="' . $T['template_url'] . '/folder.png" alt="'. $d['name'] . '" width="72" height="72" border="0" /><br />' . $d['name'] . "</a></div>\n");
 }
 ?>
@@ -28,9 +29,10 @@ if (@count($T['files'])) {
       <div class="images">
 
 <?php
-while(list($k, $f) = @each($T['files'])) {
+//while(list($k, $f) = @each($T['files'])) {
+foreach ($T['files'] as $f => $k) {
   print('<a href="' . $f['view_url'] . '"><img src="' . $f['thumb_url'] . '" alt="' . $f['name'] . '" border="0"' . " /></a>\n");
-} // while
+}
 ?>
 
       </div>

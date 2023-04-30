@@ -68,7 +68,9 @@ if ($CFG_variable_mode == 'path') {
   @$VIEW      = $url_parts[$url_offset];
   @$INDEX     = $url_parts[$url_offset + 1];
 } else {
-  $url_parts  = explode('/', trim(urldecode($_GET['p']), '/'));
+  if (array_key_exists('p', $_GET)) {
+    $url_parts  = explode('/', trim(urldecode($_GET['p']), '/'));
+  }
   @$VIEW      = $_GET['v'];
   @$INDEX     = $_GET['i'];
 } // if path mode
@@ -95,7 +97,9 @@ if ($CFG_variable_mode == 'path') {
   } // if
 } else {
   if ($VIEW == 'list') {
-    $IMAGE_DIR = $_GET['p'];
+    if (array_key_exists('p', $_GET)) {
+      $IMAGE_DIR = $_GET['p'];
+    }
   } else {
     $IMAGE_DIR        = implode('/', array_slice($url_parts, 0, -1));
     list($IMAGE_FILE) = array_slice($url_parts, -1);

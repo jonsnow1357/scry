@@ -15,7 +15,8 @@
     <td align="left">
 <?php
 
-while(list($k, $p) = @each($T['path'])) {
+//while(list($k, $p) = @each($T['path'])) {
+foreach ($T['path'] as $k => $p) {
   print(" <a href=\"$p[url]\">$p[name]</a> / ");
 }
 

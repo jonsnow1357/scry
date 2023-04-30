@@ -108,7 +108,7 @@ function directory_data($path, $url_path) {
 
   //compensate for switching away from eregi()
   $CFG_image_valid_i = array();
-  foreach($CFG_image_valid as $e) {
+  foreach ($CFG_image_valid as $e) {
     $CFG_image_valid_i[] = $e;
     $CFG_image_valid_i[] = strtoupper($e);
   }
@@ -168,7 +168,7 @@ function directory_data($path, $url_path) {
     // set thumbnail cached vs. not
     //
     $thumb = cache_test($v['url'], $CFG_thumb_width, $CFG_thumb_height); // FS FUNCTION
-    $image = cache_test($v['url'], $CFG_view_width, $CFG_view_height); // FS FUNCTION
+    $image = cache_test($v['url'], $CFG_image_width, $CFG_image_height); // FS FUNCTION
 
     if ($CFG_cache_outside_docroot || !$thumb['is_cached']) {
       $thumb_url = build_url('image', $CFG_thumb_width . 'x' . $CFG_thumb_height, $v['url']);
